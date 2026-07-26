@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satheesh Kumar P — Projects & Case Studies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1426;
+    --surface:rgba(255,255,255,0.04);
+    --surface-border:rgba(255,255,255,0.09);
+    --cyan:#00d4ff;
+    --violet:#7c3aed;
+    --amber:#f5a623;
+    --text:#e6edf3;
+    --slate-400:#8b96a8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 8% 10%, rgba(0,212,255,0.07), transparent 40%),
+      radial-gradient(circle at 92% 30%, rgba(124,58,237,0.09), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(245,166,35,0.04), transparent 40%);
+  }
+
+  .projects-section{
+    position:relative; z-index:1;
+    padding:110px 6vw;
+  }
+
+  .projects-wrap{
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  .eyebrow{
+    display:inline-block;
+    font-family:'Fira Code', monospace;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:16px;
+  }
+
+  h2.projects-title{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:40px;
+    color:#ffffff;
+    margin-bottom:10px;
+  }
+
+  .projects-sub{
+    font-size:15.5px;
+    color:var(--slate-400);
+    margin-bottom:52px;
+    max-width:560px;
+  }
+
+  /* ============ PROJECT CARDS ============ */
+  .project-card{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:18px;
+    padding:36px 40px;
+    margin-bottom:26px;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .project-card:last-child{ margin-bottom:0; }
+
+  .project-card:hover{
+    transform:translateY(-6px);
+  }
+
+  .project-card.amber-accent{
+    border-left:3px solid var(--amber);
+  }
+  .project-card.amber-accent:hover{
+    box-shadow:0 20px 46px rgba(0,0,0,0.4), 0 0 26px rgba(245,166,35,0.12);
+  }
+
+  .project-card.cyan-accent{
+    border-left:3px solid var(--cyan);
+  }
+  .project-card.cyan-accent:hover{
+    box-shadow:0 20px 46px rgba(0,0,0,0.4), 0 0 26px rgba(0,212,255,0.14);
+  }
+
+  .badge-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+  }
+
+  .status-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 16px;
+    border-radius:30px;
+    font-family:'Fira Code', monospace;
+    font-size:12.5px;
+    font-weight:500;
+  }
+
+  .status-badge.amber{
+    color:var(--amber);
+    background:rgba(245,166,35,0.12);
+    border:1px solid rgba(245,166,35,0.35);
+    box-shadow:0 0 16px rgba(245,166,35,0.25);
+  }
+  .status-badge.cyan{
+    color:var(--cyan);
+    background:rgba(0,212,255,0.1);
+    border:1px solid rgba(0,212,255,0.35);
+    box-shadow:0 0 16px rgba(0,212,255,0.25);
+  }
+
+  .status-badge .dot{
+    width:7px; height:7px; border-radius:50%;
+    animation:pulse-dot 1.6s ease-in-out infinite;
+  }
+  .status-badge.amber .dot{ background:var(--amber); box-shadow:0 0 8px var(--amber); }
+  .status-badge.cyan .dot{ background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
+  @keyframes pulse-dot{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.35; }
+  }
+
+  .repo-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 16px;
+    border-radius:30px;
+    font-family:'Fira Code', monospace;
+    font-size:12.5px;
+    font-weight:500;
+    color:var(--slate-400);
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--surface-border);
+  }
+
+  .project-title{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:24px;
+    color:#ffffff;
+    margin-bottom:16px;
+    line-height:1.3;
+  }
+
+  .project-desc{
+    font-size:14.5px;
+    line-height:1.8;
+    color:var(--slate-400);
+    max-width:820px;
+    margin-bottom:24px;
+  }
+
+  .tech-chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:28px;
+  }
+
+  .tech-chip{
+    font-family:'Fira Code', monospace;
+    font-size:12.5px;
+    font-weight:500;
+    padding:7px 14px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--surface-border);
+    color:var(--slate-400);
+    transition:.2s ease;
+  }
+  .tech-chip:hover{
+    color:var(--cyan);
+    border-color:rgba(0,212,255,0.4);
+    box-shadow:0 0 14px rgba(0,212,255,0.25);
+  }
+
+  .project-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+
+  .btn{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:13px 24px;
+    border-radius:10px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    border:none;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+
+  .btn-outline{
+    background:rgba(255,255,255,0.04);
+    color:var(--text);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+  }
+  .btn-outline:hover{
+    border-color:rgba(0,212,255,0.5);
+    color:var(--cyan);
+    box-shadow:0 0 18px rgba(0,212,255,0.15);
+  }
+
+  .btn-fill{
+    background:var(--cyan);
+    color:#00131a;
+    box-shadow:0 0 22px rgba(0,212,255,0.4), 0 0 0 1px rgba(0,212,255,0.2) inset;
+  }
+  .btn-fill:hover{
+    box-shadow:0 0 34px rgba(0,212,255,0.6), 0 0 0 1px rgba(0,212,255,0.3) inset;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:900px){
+    .projects-section{ padding:80px 6vw; }
+    .project-card{ padding:28px 24px; }
+    h2.projects-title{ font-size:32px; }
+    .project-title{ font-size:20px; }
+    .project-actions{ flex-direction:column; }
+    .btn{ width:100%; justify-content:center; }
+  }
+</style>
+</head>
+<body>
+
+<section class="projects-section">
+  <div class="projects-wrap">
+    <span class="eyebrow">Selected work</span>
+    <h2 class="projects-title">Projects & Case Studies</h2>
+    <p class="projects-sub">Production-grade systems designed and built end-to-end.</p>
+
+    <!-- CARD 1 — Civil Platform (Private Repo) -->
+    <div class="project-card amber-accent">
+      <div class="badge-row">
+        <span class="status-badge amber"><span class="dot"></span> In Progress</span>
+        <span class="repo-badge">🔒 Private Repository</span>
+      </div>
+      <h3 class="project-title">Civil Platform — Construction SaaS</h3>
+      <p class="project-desc">
+        A multi-tenant SaaS platform for construction companies to digitize site
+        workforce management, automated geo-fenced attendance, payroll calculation,
+        and real-time site reporting.
+      </p>
+      <div class="tech-chip-row">
+        <span class="tech-chip">Java 21</span>
+        <span class="tech-chip">Spring Boot 3</span>
+        <span class="tech-chip">Spring Security</span>
+        <span class="tech-chip">PostgreSQL</span>
+        <span class="tech-chip">Redis</span>
+        <span class="tech-chip">Flyway</span>
+        <span class="tech-chip">React</span>
+        <span class="tech-chip">AWS App Runner</span>
+      </div>
+      <div class="project-actions">
+        <button class="btn btn-fill">View Case Study & HLD/LLD →</button>
+      </div>
+    </div>
+
+    <!-- CARD 2 — Developer Portfolio Microservices (Public Repo) -->
+    <div class="project-card cyan-accent">
+      <div class="badge-row">
+        <span class="status-badge cyan"><span class="dot"></span> Live System</span>
+        <span class="repo-badge">🌐 Open Source</span>
+      </div>
+      <h3 class="project-title">Developer Portfolio Microservices</h3>
+      <p class="project-desc">
+        A full-stack microservices portfolio featuring Spring Boot 3, Spring AI
+        Gemini chatbot, Apache Kafka event-driven email notifications, Redis rate
+        limiting & caching, Testcontainers integration testing, and automated AWS
+        cloud deployment via GitHub Actions.
+      </p>
+      <div class="tech-chip-row">
+        <span class="tech-chip">Spring Boot 3</span>
+        <span class="tech-chip">Apache Kafka</span>
+        <span class="tech-chip">Spring AI</span>
+        <span class="tech-chip">Redis</span>
+        <span class="tech-chip">Testcontainers</span>
+        <span class="tech-chip">Cypress</span>
+        <span class="tech-chip">GitHub Actions</span>
+        <span class="tech-chip">AWS S3/CloudFront</span>
+      </div>
+      <div class="project-actions">
+        <button class="btn btn-outline">GitHub Repository ↗</button>
+        <button class="btn btn-fill">Architecture Docs →</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

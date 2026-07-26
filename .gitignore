@@ -1,0 +1,35 @@
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node / React
+node_modules/
+dist/
+build/
+.npm
+*.log
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE / Editors
+.idea/
+*.iml
+.vscode/
+
+# Environment Variables & Secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Temporary / Scratch
+scratch/
+update.py
+write_html.py
+patch.py

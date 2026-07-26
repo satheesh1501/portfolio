@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satheesh Kumar P — About Me</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f1e;
+    --surface:rgba(255,255,255,0.04);
+    --surface-border:rgba(255,255,255,0.09);
+    --cyan:#00d4ff;
+    --violet:#7c3aed;
+    --amber:#f5a623;
+    --text:#e6edf3;
+    --slate-400:#8b96a8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 10% 15%, rgba(0,212,255,0.08), transparent 40%),
+      radial-gradient(circle at 90% 25%, rgba(124,58,237,0.10), transparent 45%),
+      radial-gradient(circle at 60% 95%, rgba(245,166,35,0.05), transparent 40%);
+  }
+
+  .about-section{
+    position:relative; z-index:1;
+    padding:110px 6vw;
+  }
+
+  .about-grid{
+    max-width:1240px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:55% 45%;
+    gap:56px;
+    align-items:start;
+  }
+
+  /* ============ LEFT COLUMN ============ */
+  .eyebrow{
+    display:inline-block;
+    font-family:'Fira Code', monospace;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:16px;
+  }
+
+  h2.about-title{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:40px;
+    color:#ffffff;
+    margin-bottom:22px;
+  }
+
+  .about-text{
+    font-size:16px;
+    line-height:1.8;
+    color:var(--slate-400);
+    max-width:540px;
+    margin-bottom:44px;
+  }
+
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+  }
+
+  .stat-card{
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:16px;
+    padding:26px 16px;
+    text-align:center;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .stat-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(0,212,255,0.4);
+    box-shadow:0 0 26px rgba(0,212,255,0.15);
+  }
+
+  .stat-num{
+    font-family:'Outfit', sans-serif;
+    font-weight:800;
+    font-size:32px;
+    color:var(--cyan);
+    text-shadow:0 0 18px rgba(0,212,255,0.35);
+  }
+
+  .stat-label{
+    font-family:'Inter', sans-serif;
+    font-size:12.5px;
+    font-weight:500;
+    color:var(--slate-400);
+    margin-top:8px;
+    letter-spacing:0.3px;
+  }
+
+  /* ============ RIGHT COLUMN — FEATURED CARD ============ */
+  .featured-card{
+    position:relative;
+    background:var(--surface);
+    border:1px solid rgba(245,166,35,0.35);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:20px;
+    padding:34px;
+    box-shadow:0 0 0 1px rgba(245,166,35,0.08) inset, 0 20px 50px rgba(0,0,0,0.35);
+  }
+
+  .status-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 16px;
+    border-radius:30px;
+    font-family:'Fira Code', monospace;
+    font-size:12.5px;
+    font-weight:500;
+    color:var(--amber);
+    background:rgba(245,166,35,0.12);
+    border:1px solid rgba(245,166,35,0.35);
+    box-shadow:0 0 16px rgba(245,166,35,0.25);
+    margin-bottom:22px;
+  }
+  .status-badge .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--amber);
+    box-shadow:0 0 8px var(--amber);
+    animation:pulse-dot 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse-dot{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.35; }
+  }
+
+  .featured-title{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:23px;
+    color:#ffffff;
+    margin-bottom:14px;
+    line-height:1.3;
+  }
+
+  .featured-desc{
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--slate-400);
+    margin-bottom:26px;
+  }
+
+  .tech-badge-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .tech-badge{
+    font-family:'Fira Code', monospace;
+    font-size:12.5px;
+    font-weight:500;
+    padding:7px 14px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--surface-border);
+    color:var(--slate-400);
+    transition:.2s ease;
+  }
+  .tech-badge:hover{
+    color:var(--cyan);
+    border-color:rgba(0,212,255,0.4);
+    box-shadow:0 0 14px rgba(0,212,255,0.2);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:900px){
+    .about-section{ padding:80px 6vw; }
+    .about-grid{
+      grid-template-columns:1fr;
+      gap:44px;
+    }
+    .about-text{ max-width:100%; }
+    .stat-row{ gap:12px; }
+    .stat-num{ font-size:26px; }
+  }
+
+  @media (max-width:520px){
+    .stat-row{
+      grid-template-columns:1fr 1fr;
+    }
+    .stat-row .stat-card:nth-child(3){
+      grid-column:1 / span 2;
+    }
+    h2.about-title{ font-size:32px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="about-section">
+  <div class="about-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="text-col">
+      <span class="eyebrow">Get to know me</span>
+      <h2 class="about-title">About Me</h2>
+      <p class="about-text">
+        Software Developer with 2.5 years of experience delivering enterprise
+        applications using Java, Spring Boot, PostgreSQL, and React. Currently
+        at HCL Technologies supporting global pharma client applications.
+        Passionate about clean architecture, test automation, and building
+        scalable SaaS solutions.
+      </p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">2.5</div>
+          <div class="stat-label">Years Exp</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Prod Bugs Fixed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">25%</div>
+          <div class="stat-label">API Perf Gain</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="visual-col">
+      <div class="featured-card">
+        <span class="status-badge"><span class="dot"></span> In Progress</span>
+        <h3 class="featured-title">Civil Platform — Construction SaaS</h3>
+        <p class="featured-desc">
+          A multi-tenant construction SaaS for workforce tracking, geo-fenced
+          site attendance, payroll computation, and real-time site analytics
+          — built as a full-stack product.
+        </p>
+        <div class="tech-badge-row">
+          <span class="tech-badge">Java 21</span>
+          <span class="tech-badge">Spring Boot 3</span>
+          <span class="tech-badge">PostgreSQL</span>
+          <span class="tech-badge">Redis</span>
+          <span class="tech-badge">React</span>
+          <span class="tech-badge">AWS</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satheesh Kumar P — Contact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f1e;
+    --surface:rgba(255,255,255,0.04);
+    --surface-border:rgba(255,255,255,0.09);
+    --cyan:#00d4ff;
+    --violet:#7c3aed;
+    --text:#e6edf3;
+    --slate-400:#8b96a8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 10% 15%, rgba(0,212,255,0.07), transparent 40%),
+      radial-gradient(circle at 90% 20%, rgba(124,58,237,0.09), transparent 45%);
+  }
+
+  /* ============ CONTACT SECTION ============ */
+  .contact-section{
+    position:relative; z-index:1;
+    padding:110px 6vw 90px;
+  }
+  .contact-wrap{
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .eyebrow{
+    display:inline-block;
+    font-family:'Fira Code', monospace;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:16px;
+  }
+  h2.contact-title{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:40px;
+    color:#ffffff;
+    margin-bottom:12px;
+  }
+  .contact-sub{
+    font-size:15.5px;
+    color:var(--slate-400);
+    margin-bottom:52px;
+    max-width:560px;
+  }
+
+  .contact-grid{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:40px;
+    align-items:start;
+  }
+
+  /* LEFT: info cards */
+  .info-col{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .info-card{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:14px;
+    padding:20px;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .info-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(0,212,255,0.35);
+    box-shadow:0 0 22px rgba(0,212,255,0.12);
+  }
+  .info-icon{
+    width:44px; height:44px;
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(0,212,255,0.1);
+    border:1px solid rgba(0,212,255,0.2);
+    font-size:19px;
+    flex-shrink:0;
+  }
+  .info-label{
+    font-size:12px;
+    color:var(--slate-400);
+    margin-bottom:3px;
+  }
+  .info-value{
+    font-size:14.5px;
+    font-weight:600;
+    color:#ffffff;
+    word-break:break-word;
+  }
+
+  /* RIGHT: form */
+  .form-card{
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:18px;
+    padding:36px;
+  }
+  .form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:16px;
+  }
+  .field{
+    width:100%;
+    padding:14px 16px;
+    border-radius:10px;
+    font-family:'Inter', sans-serif;
+    font-size:14px;
+    color:var(--text);
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--surface-border);
+    outline:none;
+    transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  .field::placeholder{ color:var(--slate-400); }
+  .field:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 15px rgba(0,212,255,0.25);
+  }
+  textarea.field{
+    height:130px;
+    resize:none;
+    margin-bottom:22px;
+    font-family:'Inter', sans-serif;
+  }
+  .subject-field{ margin-bottom:16px; }
+
+  .send-btn{
+    width:100%;
+    padding:15px 24px;
+    border:none;
+    border-radius:10px;
+    background:var(--cyan);
+    color:#00131a;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    box-shadow:0 0 24px rgba(0,212,255,0.4);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .send-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 36px rgba(0,212,255,0.6);
+  }
+
+  /* ============ FOOTER ============ */
+  footer{
+    position:relative; z-index:1;
+    border-top:1px solid rgba(255,255,255,0.06);
+    padding:32px 6vw;
+  }
+  .footer-wrap{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .footer-copy{
+    font-size:14px;
+    color:var(--slate-400);
+  }
+  .footer-social{
+    display:flex;
+    gap:14px;
+  }
+  .footer-icon{
+    width:40px; height:40px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    color:var(--slate-400);
+    cursor:pointer;
+    transition:.25s ease;
+  }
+  .footer-icon:hover{
+    color:var(--cyan);
+    border-color:rgba(0,212,255,0.5);
+    box-shadow:0 0 18px rgba(0,212,255,0.3);
+    transform:translateY(-2px);
+  }
+  .footer-icon svg{ width:18px; height:18px; }
+
+  /* ============ AI CHAT WIDGET ============ */
+  .chat-widget-button{
+    position:fixed;
+    bottom:32px; right:32px;
+    z-index:200;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    background:var(--cyan);
+    color:#00131a;
+    font-family:'Inter', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    padding:15px 22px 15px 16px;
+    border-radius:32px;
+    cursor:pointer;
+    box-shadow:0 0 35px rgba(0,212,255,0.4);
+    border:none;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .chat-widget-button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 46px rgba(0,212,255,0.55);
+  }
+  .chat-widget-button .sparkle{
+    font-size:16px;
+  }
+
+  #chatPanel{
+    position:fixed;
+    bottom:32px; right:32px;
+    width:390px;
+    max-width:calc(100vw - 40px);
+    z-index:200;
+    display:none;
+    flex-direction:column;
+    background:rgba(13,20,38,0.95);
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.6);
+    overflow:hidden;
+    max-height:70vh;
+  }
+
+  .chat-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:16px 18px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    background:rgba(255,255,255,0.02);
+    flex-shrink:0;
+  }
+  .chat-header .bot-icon{
+    width:34px; height:34px;
+    border-radius:50%;
+    background:rgba(0,212,255,0.15);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px;
+  }
+  .chat-header h5{
+    font-family:'Inter', sans-serif;
+    font-size:14px;
+    font-weight:700;
+    color:#ffffff;
+    flex:1;
+  }
+  .chat-close{
+    cursor:pointer;
+    color:var(--slate-400);
+    font-size:18px;
+    line-height:1;
+    background:none;
+    border:none;
+    padding:4px;
+    transition:color .2s ease;
+  }
+  .chat-close:hover{ color:var(--cyan); }
+
+  .chat-body{
+    padding:18px;
+    overflow-y:auto;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .ai-bubble{
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--surface-border);
+    padding:12px 15px;
+    border-radius:14px 14px 14px 4px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--slate-400);
+    max-width:88%;
+    align-self:flex-start;
+  }
+
+  .user-bubble{
+    background:rgba(0,212,255,0.12);
+    border:1px solid rgba(0,212,255,0.25);
+    padding:12px 15px;
+    border-radius:14px 14px 4px 14px;
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text);
+    max-width:88%;
+    align-self:flex-end;
+  }
+
+  .suggested-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .suggested-chip{
+    padding:7px 13px;
+    border-radius:16px;
+    font-size:12px;
+    font-family:'Fira Code', monospace;
+    background:rgba(0,212,255,0.06);
+    border:1px solid rgba(0,212,255,0.3);
+    color:var(--cyan);
+    cursor:pointer;
+    transition:.2s ease;
+  }
+  .suggested-chip:hover{
+    background:rgba(0,212,255,0.14);
+    box-shadow:0 0 12px rgba(0,212,255,0.25);
+  }
+
+  .chat-input-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 16px;
+    border-top:1px solid rgba(255,255,255,0.06);
+    flex-shrink:0;
+  }
+  .chat-input-row input{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    font-size:13.5px;
+  }
+  .chat-input-row input::placeholder{ color:var(--slate-400); }
+  .chat-send{
+    width:34px; height:34px;
+    border-radius:50%;
+    background:var(--cyan);
+    color:#00131a;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    flex-shrink:0;
+    border:none;
+    box-shadow:0 0 14px rgba(0,212,255,0.4);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .chat-send:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 22px rgba(0,212,255,0.55);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:900px){
+    .contact-section{ padding:80px 6vw 70px; }
+    h2.contact-title{ font-size:32px; }
+    .contact-grid{
+      grid-template-columns:1fr;
+      gap:32px;
+    }
+    .form-row{ grid-template-columns:1fr; }
+    .form-card{ padding:26px; }
+    footer{ padding:28px 6vw; }
+    .footer-wrap{ justify-content:center; text-align:center; }
+  }
+
+  @media (max-width:480px){
+    #chatPanel{
+      bottom:16px; right:16px;
+      width:calc(100vw - 32px);
+    }
+    .chat-widget-button{ bottom:16px; right:16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ CONTACT SECTION ============ -->
+<section class="contact-section" id="contact">
+  <div class="contact-wrap">
+    <span class="eyebrow">Get in touch</span>
+    <h2 class="contact-title">Let's Connect</h2>
+    <p class="contact-sub">Open to new engineering opportunities, SaaS discussions, and technical conversations.</p>
+
+    <div class="contact-grid">
+
+      <!-- LEFT: Info Cards -->
+      <div class="info-col">
+        <div class="info-card">
+          <div class="info-icon">✉</div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value">psatheeshkumar89@gmail.com</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🔗</div>
+          <div>
+            <div class="info-label">LinkedIn</div>
+            <div class="info-value">linkedin.com/in/satheeshkumarp</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">💻</div>
+          <div>
+            <div class="info-label">GitHub</div>
+            <div class="info-value">github.com/satheesh1501</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Location</div>
+            <div class="info-value">Aruppukottai, Tamil Nadu</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
+      <div class="form-card">
+        <div class="form-row">
+          <input class="field" type="text" placeholder="Your Name">
+          <input class="field" type="email" placeholder="Your Email">
+        </div>
+        <input class="field subject-field" type="text" placeholder="Subject">
+        <textarea class="field" placeholder="Your Message"></textarea>
+        <button class="send-btn">Send Message →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-copy">© 2026 Satheesh Kumar P. All rights reserved.</div>
+    <div class="footer-social">
+      <a class="footer-icon" href="#" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55v-1.94c-3.2.7-3.87-1.54-3.87-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.97.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 015.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.08.78 2.17v3.22c0 .3.21.66.79.55A10.51 10.51 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+      </a>
+      <a class="footer-icon" href="#" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ FLOATING AI CHAT WIDGET ============ -->
+<button class="chat-widget-button" id="chatButton" onclick="toggleChat()">
+  <span class="sparkle">✦</span>
+  <span>Ask AI</span>
+</button>
+
+<div id="chatPanel">
+  <div class="chat-header">
+    <div class="bot-icon">🤖</div>
+    <h5>Ask About Satheesh</h5>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+
+  <div class="chat-body">
+    <div class="ai-bubble">
+      Hi! I'm Satheesh's AI assistant. Ask me anything about his experience in
+      Java, Spring Boot, Microservices, or his Civil Platform project!
+    </div>
+
+    <div class="suggested-row">
+      <span class="suggested-chip">Spring Boot exp?</span>
+      <span class="suggested-chip">Civil Platform details</span>
+      <span class="suggested-chip">Kafka architecture</span>
+    </div>
+
+    <div class="user-bubble">What did he build at HCL?</div>
+
+    <div class="ai-bubble">
+      At HCL Technologies, Satheesh built automated Export APIs that reduced
+      manual turnaround time by 25% and resolved 15+ production bugs across
+      Angular, Spring Boot, and SQL.
+    </div>
+  </div>
+
+  <div class="chat-input-row">
+    <input type="text" placeholder="Type your question...">
+    <button class="chat-send">➤</button>
+  </div>
+</div>
+
+<script>
+  function toggleChat(){
+    const panel = document.getElementById('chatPanel');
+    const isOpen = panel.style.display === 'flex';
+    panel.style.display = isOpen ? 'none' : 'flex';
+  }
+</script>
+
+</body>
+</html>

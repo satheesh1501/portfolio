@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satheesh Kumar P — Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f1e;
+    --surface:rgba(255,255,255,0.04);
+    --surface-border:rgba(255,255,255,0.09);
+    --cyan:#00d4ff;
+    --violet:#7c3aed;
+    --text:#e6edf3;
+    --slate-400:#8b96a8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ambient background glow */
+  body::before{
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 12% 20%, rgba(0,212,255,0.10), transparent 42%),
+      radial-gradient(circle at 88% 15%, rgba(124,58,237,0.14), transparent 45%),
+      radial-gradient(circle at 60% 90%, rgba(0,212,255,0.06), transparent 40%);
+  }
+
+  .hero{
+    position:relative; z-index:1;
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding:60px 6vw;
+  }
+
+  .hero-grid{
+    width:100%;
+    max-width:1280px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:60% 40%;
+    align-items:center;
+    gap:40px;
+  }
+
+  /* ============ LEFT COLUMN ============ */
+  .eyebrow{
+    display:inline-block;
+    font-family:'Fira Code', monospace;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:22px;
+  }
+
+  h1.name{
+    font-family:'Outfit', sans-serif;
+    font-weight:800;
+    font-size:60px;
+    line-height:1.08;
+    letter-spacing:-1px;
+    background:linear-gradient(100deg, #ffffff 20%, var(--cyan) 85%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+
+  .underline{
+    width:120px;
+    height:4px;
+    margin:20px 0 26px;
+    border-radius:4px;
+    background:linear-gradient(90deg, var(--cyan), var(--violet));
+    box-shadow:0 0 16px rgba(0,212,255,0.5);
+  }
+
+  .typing-wrap{
+    display:flex;
+    align-items:center;
+    margin-bottom:24px;
+  }
+  .typing-container{
+    font-family:'Fira Code', monospace;
+    font-size:16px;
+    font-weight:500;
+    color:var(--cyan);
+    white-space:nowrap;
+    overflow:hidden;
+    border-right:2px solid var(--cyan);
+    width:0;
+    animation:typing 3.5s steps(48, end) forwards, caret 0.8s step-end infinite;
+  }
+  @keyframes typing{
+    from{width:0;}
+    to{width:38ch;}
+  }
+  @keyframes caret{
+    50%{border-color:transparent;}
+  }
+
+  .sub-headline{
+    font-size:16.5px;
+    line-height:1.7;
+    color:var(--slate-400);
+    max-width:520px;
+    margin-bottom:38px;
+  }
+
+  .btn-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-bottom:36px;
+  }
+  .btn{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    padding:15px 30px;
+    border-radius:12px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    border:none;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .btn:hover{ transform:translateY(-3px); }
+
+  .btn-fill{
+    background:var(--cyan);
+    color:#00131a;
+    box-shadow:0 0 26px rgba(0,212,255,0.45), 0 0 0 1px rgba(0,212,255,0.2) inset;
+  }
+  .btn-fill:hover{
+    box-shadow:0 0 40px rgba(0,212,255,0.65), 0 0 0 1px rgba(0,212,255,0.3) inset;
+  }
+
+  .btn-outline{
+    background:var(--surface);
+    color:var(--text);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+  }
+  .btn-outline:hover{
+    border-color:rgba(0,212,255,0.5);
+    color:var(--cyan);
+    box-shadow:0 0 20px rgba(0,212,255,0.15);
+  }
+
+  .social-row{
+    display:flex;
+    gap:16px;
+  }
+  .social-icon{
+    width:46px; height:46px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    color:var(--slate-400);
+    cursor:pointer;
+    transition:.25s ease;
+  }
+  .social-icon:hover{
+    color:var(--cyan);
+    border-color:rgba(0,212,255,0.5);
+    box-shadow:0 0 22px rgba(0,212,255,0.35);
+    transform:translateY(-3px);
+  }
+  .social-icon svg{ width:20px; height:20px; }
+
+  /* ============ RIGHT COLUMN ============ */
+  .visual-col{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:420px;
+  }
+
+  .avatar-frame{
+    position:relative;
+    width:240px;
+    height:240px;
+    border-radius:50%;
+    padding:6px;
+    background:linear-gradient(135deg, var(--cyan), var(--violet));
+    box-shadow:0 0 50px rgba(0,212,255,0.3);
+    animation:ring-pulse 4s ease-in-out infinite;
+  }
+  @keyframes ring-pulse{
+    0%,100%{ box-shadow:0 0 50px rgba(0,212,255,0.3); }
+    50%{ box-shadow:0 0 70px rgba(0,212,255,0.45); }
+  }
+
+  .avatar-photo-wrap{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    overflow:hidden;
+    background:linear-gradient(160deg, #17233d, #0a0f1e);
+  }
+
+  .avatar-photo-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    display:block;
+    transition:transform .5s ease;
+  }
+  .avatar-frame:hover .avatar-photo-wrap img{
+    transform:scale(1.05);
+  }
+
+  /* floating tech badges */
+  .tech-badge{
+    position:absolute;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:9px 16px;
+    border-radius:30px;
+    font-family:'Fira Code', monospace;
+    font-size:13px;
+    font-weight:500;
+    color:var(--text);
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    box-shadow:0 8px 24px rgba(0,0,0,0.35);
+    animation:orbit-float 6s ease-in-out infinite;
+  }
+
+  .badge-java{ top:-2%; left:-16%; animation-delay:0s; }
+  .badge-react{ top:6%; right:-20%; animation-delay:1.4s; }
+  .badge-spring{ bottom:8%; left:-22%; animation-delay:2.8s; }
+  .badge-aws{ bottom:-2%; right:-14%; animation-delay:4.2s; }
+
+  @keyframes orbit-float{
+    0%, 100%{ transform:translateY(0px); }
+    50%{ transform:translateY(-14px); }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:960px){
+    .hero-grid{
+      grid-template-columns:1fr;
+      text-align:center;
+    }
+    .underline{ margin-left:auto; margin-right:auto; }
+    .sub-headline{ margin-left:auto; margin-right:auto; }
+    .btn-row, .social-row{ justify-content:center; }
+    .visual-col{ margin-top:60px; min-height:340px; }
+    h1.name{ font-size:44px; }
+    .badge-java{ left:2%; }
+    .badge-react{ right:2%; }
+    .badge-spring{ left:2%; }
+    .badge-aws{ right:2%; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .typing-container{ animation:none; width:38ch; border-right:none; }
+    .tech-badge, .avatar-frame{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="content-col">
+      <span class="eyebrow">Full Stack Developer</span>
+      <h1 class="name">Satheesh Kumar P</h1>
+      <div class="underline"></div>
+
+      <div class="typing-wrap">
+        <span class="typing-container">Java 21 · Spring Boot · React · AWS · Microservices</span>
+      </div>
+
+      <p class="sub-headline">
+        I build high-performance microservices and clean web applications —
+        turning enterprise requirements into production-ready software.
+      </p>
+
+      <div class="btn-row">
+        <button class="btn btn-fill">View My Work →</button>
+        <button class="btn btn-outline">Download Resume ⬇</button>
+      </div>
+
+      <div class="social-row">
+        <a class="social-icon" href="#" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55v-1.94c-3.2.7-3.87-1.54-3.87-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.97.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 015.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.08.78 2.17v3.22c0 .3.21.66.79.55A10.51 10.51 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        </a>
+        <a class="social-icon" href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="visual-col">
+      <div class="avatar-frame">
+        <div class="avatar-photo-wrap">
+          <img src="profile.jpg" alt="Satheesh Kumar P">
+        </div>
+
+        <div class="tech-badge badge-java">☕ Java 21</div>
+        <div class="tech-badge badge-react">⚛ React 18</div>
+        <div class="tech-badge badge-spring">🌿 Spring Boot 3</div>
+        <div class="tech-badge badge-aws">☁ AWS</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

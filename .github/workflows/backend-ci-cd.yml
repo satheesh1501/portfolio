@@ -1,0 +1,35 @@
+name: Backend Microservices CI/CD Pipeline
+
+on: 
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'portfolio-service/**'
+      - 'notification-service/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'portfolio-service/**'
+      - 'notification-service/**'
+
+jobs:
+  build-test-and-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Security Scan - Gitleaks Secret Detection
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

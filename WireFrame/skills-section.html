@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satheesh Kumar P — Technical Skills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1426;
+    --surface:rgba(255,255,255,0.035);
+    --surface-border:rgba(255,255,255,0.08);
+    --cyan:#00d4ff;
+    --violet:#7c3aed;
+    --text:#e6edf3;
+    --slate-400:#8b96a8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 8% 10%, rgba(0,212,255,0.07), transparent 40%),
+      radial-gradient(circle at 92% 20%, rgba(124,58,237,0.09), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(0,212,255,0.05), transparent 40%);
+  }
+
+  .skills-section{
+    position:relative; z-index:1;
+    padding:110px 6vw;
+  }
+
+  .skills-wrap{
+    max-width:1280px;
+    margin:0 auto;
+  }
+
+  .eyebrow{
+    display:inline-block;
+    font-family:'Fira Code', monospace;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:16px;
+  }
+
+  h2.skills-title{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:40px;
+    color:#ffffff;
+    margin-bottom:10px;
+  }
+
+  .skills-sub{
+    font-size:15.5px;
+    color:var(--slate-400);
+    margin-bottom:52px;
+    max-width:560px;
+  }
+
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+
+  .skill-card{
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    border-left:3px solid var(--cyan);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:14px;
+    padding:26px 24px;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .skill-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 34px rgba(0,0,0,0.35), 0 0 20px rgba(0,212,255,0.08);
+  }
+
+  .skill-card-head{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:20px;
+  }
+
+  .skill-icon{
+    width:40px; height:40px;
+    border-radius:11px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(0,212,255,0.1);
+    border:1px solid rgba(0,212,255,0.2);
+    color:var(--cyan);
+    font-size:18px;
+    flex-shrink:0;
+  }
+
+  .skill-card h3{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:16.5px;
+    color:#ffffff;
+  }
+
+  .chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+  }
+
+  .chip{
+    font-family:'Fira Code', monospace;
+    font-size:12.5px;
+    font-weight:500;
+    padding:7px 13px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--surface-border);
+    color:var(--slate-400);
+    cursor:default;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, color .2s ease;
+  }
+  .chip:hover{
+    color:var(--cyan);
+    border-color:rgba(0,212,255,0.5);
+    box-shadow:0 0 14px rgba(0,212,255,0.3);
+    transform:translateY(-2px);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1080px){
+    .skills-grid{
+      grid-template-columns:repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width:640px){
+    .skills-section{ padding:80px 6vw; }
+    .skills-grid{
+      grid-template-columns:1fr;
+    }
+    h2.skills-title{ font-size:32px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="skills-section">
+  <div class="skills-wrap">
+    <span class="eyebrow">Toolbox</span>
+    <h2 class="skills-title">Technical Skills</h2>
+    <p class="skills-sub">The languages, frameworks, and tools I use to design, build, and ship production software.</p>
+
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-icon">⚙</div>
+          <h3>Backend</h3>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Java 21</span>
+          <span class="chip">Spring Boot 3.x</span>
+          <span class="chip">Spring Security</span>
+          <span class="chip">Spring Cache</span>
+          <span class="chip">Spring AI</span>
+          <span class="chip">Spring Retry</span>
+          <span class="chip">Lombok</span>
+          <span class="chip">MapStruct</span>
+          <span class="chip">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-icon">◧</div>
+          <h3>Frontend</h3>
+        </div>
+        <div class="chip-row">
+          <span class="chip">React 18</span>
+          <span class="chip">Vite</span>
+          <span class="chip">React Query</span>
+          <span class="chip">Zustand</span>
+          <span class="chip">Framer Motion</span>
+          <span class="chip">Axios</span>
+          <span class="chip">HTML5/CSS3</span>
+          <span class="chip">Tailwind CSS</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-icon">⛁</div>
+          <h3>Database & Cache</h3>
+        </div>
+        <div class="chip-row">
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">Redis (Upstash)</span>
+          <span class="chip">Flyway DB</span>
+          <span class="chip">Full-Text Search</span>
+          <span class="chip">MySQL</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-icon">⚡</div>
+          <h3>Messaging & AI</h3>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Apache Kafka</span>
+          <span class="chip">Consumer Groups</span>
+          <span class="chip">Gemini 1.5 Flash</span>
+          <span class="chip">SSE Streaming</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-icon">✓</div>
+          <h3>Testing</h3>
+        </div>
+        <div class="chip-row">
+          <span class="chip">JUnit 5</span>
+          <span class="chip">Mockito</span>
+          <span class="chip">Testcontainers</span>
+          <span class="chip">Cypress E2E</span>
+          <span class="chip">Vitest</span>
+          <span class="chip">React Testing Library</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-head">
+          <div class="skill-icon">☁</div>
+          <h3>DevOps & Cloud</h3>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Docker</span>
+          <span class="chip">GitHub Actions</span>
+          <span class="chip">AWS S3</span>
+          <span class="chip">CloudFront</span>
+          <span class="chip">App Runner</span>
+          <span class="chip">ECR</span>
+          <span class="chip">SonarCloud</span>
+          <span class="chip">CodeQL</span>
+          <span class="chip">Gitleaks</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

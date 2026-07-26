@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satheesh Kumar P — Work Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f1e;
+    --surface:rgba(255,255,255,0.04);
+    --surface-border:rgba(255,255,255,0.09);
+    --cyan:#00d4ff;
+    --violet:#7c3aed;
+    --amber:#f5a623;
+    --text:#e6edf3;
+    --slate-400:#8b96a8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 10% 10%, rgba(0,212,255,0.07), transparent 40%),
+      radial-gradient(circle at 90% 30%, rgba(124,58,237,0.10), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(0,212,255,0.05), transparent 40%);
+  }
+
+  .exp-section{
+    position:relative; z-index:1;
+    padding:110px 6vw;
+  }
+
+  .exp-wrap{
+    max-width:1120px;
+    margin:0 auto;
+  }
+
+  .eyebrow{
+    display:inline-block;
+    font-family:'Fira Code', monospace;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:16px;
+  }
+
+  h2.exp-title{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:40px;
+    color:#ffffff;
+    margin-bottom:60px;
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline{
+    position:relative;
+  }
+
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:linear-gradient(180deg, var(--cyan), var(--violet));
+    transform:translateX(-50%);
+    box-shadow:0 0 12px rgba(0,212,255,0.35);
+  }
+
+  .tl-item{
+    position:relative;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    margin-bottom:64px;
+  }
+  .tl-item:last-child{ margin-bottom:0; }
+
+  .tl-dot{
+    position:absolute;
+    left:50%;
+    top:30px;
+    width:16px; height:16px;
+    border-radius:50%;
+    background:var(--cyan);
+    transform:translateX(-50%);
+    box-shadow:0 0 0 6px rgba(0,212,255,0.15);
+    animation:pulse 2.2s ease-in-out infinite;
+    z-index:2;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(0,212,255,0.45); }
+    70%{ box-shadow:0 0 0 14px rgba(0,212,255,0); }
+    100%{ box-shadow:0 0 0 0 rgba(0,212,255,0); }
+  }
+
+  .tl-card{
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:16px;
+    padding:28px 30px;
+    grid-column:1;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .tl-item:nth-child(even) .tl-card{
+    grid-column:2;
+  }
+  .tl-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 36px rgba(0,0,0,0.35), 0 0 20px rgba(0,212,255,0.08);
+  }
+
+  .date-pill{
+    display:inline-block;
+    font-family:'Fira Code', monospace;
+    font-size:12px;
+    font-weight:500;
+    padding:6px 14px;
+    border-radius:20px;
+    background:rgba(245,166,35,0.12);
+    border:1px solid rgba(245,166,35,0.3);
+    color:var(--amber);
+    margin-bottom:16px;
+  }
+
+  .tl-company{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:20px;
+    color:#ffffff;
+    margin-bottom:4px;
+  }
+
+  .tl-role{
+    font-size:14px;
+    font-weight:600;
+    color:var(--cyan);
+    margin-bottom:16px;
+  }
+
+  .tl-bullets{
+    list-style:none;
+    margin-bottom:20px;
+  }
+  .tl-bullets li{
+    position:relative;
+    font-size:14px;
+    line-height:1.7;
+    color:var(--slate-400);
+    padding-left:18px;
+    margin-bottom:10px;
+  }
+  .tl-bullets li::before{
+    content:'';
+    position:absolute;
+    left:0; top:9px;
+    width:5px; height:5px;
+    border-radius:50%;
+    background:var(--cyan);
+  }
+  .tl-bullets li:last-child{ margin-bottom:0; }
+
+  .tech-chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+  }
+
+  .tech-chip{
+    font-family:'Fira Code', monospace;
+    font-size:12px;
+    font-weight:500;
+    padding:6px 13px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--surface-border);
+    color:var(--slate-400);
+    transition:.2s ease;
+  }
+  .tech-chip:hover{
+    color:var(--cyan);
+    border-color:rgba(0,212,255,0.4);
+    box-shadow:0 0 14px rgba(0,212,255,0.25);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:860px){
+    .exp-section{ padding:80px 6vw; }
+    h2.exp-title{ font-size:32px; margin-bottom:44px; }
+
+    .timeline::before{
+      left:20px;
+      transform:none;
+    }
+
+    .tl-item{
+      grid-template-columns:1fr;
+      padding-left:52px;
+      gap:0;
+      margin-bottom:40px;
+    }
+
+    .tl-dot{
+      left:20px;
+      top:6px;
+      transform:translateX(-50%);
+    }
+
+    .tl-card,
+    .tl-item:nth-child(even) .tl-card{
+      grid-column:1;
+    }
+  }
+</style>
+</head>
+<body>
+
+<section class="exp-section">
+  <div class="exp-wrap">
+    <span class="eyebrow">Career path</span>
+    <h2 class="exp-title">Work Experience</h2>
+
+    <div class="timeline">
+
+      <!-- CARD 1 — LEFT -->
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="date-pill">Mar 2025 – Present</span>
+          <div class="tl-company">HCL Technologies</div>
+          <div class="tl-role">Software Developer</div>
+          <ul class="tl-bullets">
+            <li>Developed and maintained Spring Boot backend services for a global pharma/life sciences client application.</li>
+            <li>Built automated Export APIs that reduced manual export turnaround time by 25%.</li>
+            <li>Resolved 15+ critical cross-stack bugs across Angular, Spring Boot, and SQL databases.</li>
+          </ul>
+          <div class="tech-chip-row">
+            <span class="tech-chip">Java</span>
+            <span class="tech-chip">Spring Boot</span>
+            <span class="tech-chip">Angular</span>
+            <span class="tech-chip">PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 — RIGHT -->
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <span class="date-pill">Apr 2024 – Mar 2025</span>
+          <div class="tl-company">Profit.co</div>
+          <div class="tl-role">Junior Software Engineer</div>
+          <ul class="tl-bullets">
+            <li>Designed and shipped core REST API modules for the OKR Management SaaS platform.</li>
+            <li>Optimized database queries and API endpoints, improving response times by 20%.</li>
+            <li>Implemented Elasticsearch full-text search for fast querying of large organizational datasets.</li>
+          </ul>
+          <div class="tech-chip-row">
+            <span class="tech-chip">Java</span>
+            <span class="tech-chip">Spring Boot</span>
+            <span class="tech-chip">React</span>
+            <span class="tech-chip">Elasticsearch</span>
+            <span class="tech-chip">MySQL</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

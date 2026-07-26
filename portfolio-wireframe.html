@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satheesh Kumar P — Portfolio Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f1e;
+    --bg-alt:#0d1424;
+    --glass:rgba(255,255,255,0.05);
+    --glass-border:rgba(255,255,255,0.09);
+    --cyan:#00d4ff;
+    --violet:#7c3aed;
+    --amber:#f5a623;
+    --text:#e6edf3;
+    --text-dim:#8b96a8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Outfit', sans-serif;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  section{padding:110px 0;}
+
+  /* background ambience */
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(0,212,255,0.08), transparent 40%),
+      radial-gradient(circle at 85% 30%, rgba(124,58,237,0.10), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(0,212,255,0.05), transparent 40%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-radius:16px;
+  }
+
+  .eyebrow{
+    font-size:13px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--cyan); font-weight:600; margin-bottom:14px; display:block;
+  }
+  .section-title{font-size:40px; font-weight:700; margin-bottom:12px;}
+  .section-sub{color:var(--text-dim); font-size:16px; margin-bottom:52px;}
+
+  /* ===== NAVBAR ===== */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,15,30,0.55);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  nav{
+    max-width:1180px; margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-size:22px; font-weight:800; color:var(--cyan);
+    letter-spacing:1px;
+  }
+  .nav-links{display:flex; gap:36px; list-style:none;}
+  .nav-links a{
+    font-size:14.5px; font-weight:500; color:var(--text-dim);
+    position:relative; padding:6px 2px; transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a.active{color:var(--cyan);}
+  .nav-links a.active::after{
+    content:''; position:absolute; left:0; right:0; bottom:-6px;
+    height:2px; background:var(--cyan); border-radius:2px;
+    box-shadow:0 0 8px var(--cyan);
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh; display:flex; align-items:center;
+    padding-top:90px;
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.2fr 0.8fr; gap:60px; align-items:center;
+  }
+  .hero-greet{font-size:20px; color:var(--text-dim); font-weight:500;}
+  .hero-name{
+    font-size:60px; font-weight:800; line-height:1.1; margin:8px 0 20px;
+    background:linear-gradient(90deg, var(--text) 40%, var(--cyan));
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .hero-name .underline{
+    display:block; width:210px; height:4px; margin-top:14px; border-radius:4px;
+    background:linear-gradient(90deg, var(--cyan), transparent);
+  }
+  .typing{
+    font-family:'Inter', monospace; font-size:19px; color:var(--cyan);
+    margin-bottom:22px; font-weight:500;
+  }
+  .typing::after{
+    content:''; display:inline-block; width:2px; height:20px; background:var(--cyan);
+    margin-left:4px; vertical-align:middle; animation:blink 1s infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  .hero-desc{color:var(--text-dim); font-size:16px; max-width:460px; margin-bottom:34px;}
+  .btn-row{display:flex; gap:16px; margin-bottom:30px;}
+  .btn{
+    padding:14px 28px; border-radius:10px; font-weight:600; font-size:14.5px;
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-fill{background:var(--cyan); color:#00131a; box-shadow:0 0 24px rgba(0,212,255,0.35);}
+  .btn-outline{background:transparent; border:1px solid rgba(0,212,255,0.5); color:var(--cyan);}
+  .social-row{display:flex; gap:16px;}
+  .icon-circle{
+    width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:var(--glass); border:1px solid var(--glass-border); color:var(--text-dim);
+    transition:.2s;
+  }
+  .icon-circle:hover{color:var(--cyan); border-color:var(--cyan);}
+
+  .avatar-wrap{position:relative; display:flex; align-items:center; justify-content:center;}
+  .avatar-ring{
+    width:230px; height:230px; border-radius:50%;
+    background:linear-gradient(135deg, var(--cyan), var(--violet));
+    padding:5px; box-shadow:0 0 50px rgba(0,212,255,0.35);
+  }
+  .avatar-img{
+    width:100%; height:100%; border-radius:50%;
+    background:linear-gradient(160deg, #17233d, #0a0f1e);
+    display:flex; align-items:center; justify-content:center;
+    font-size:64px; color:var(--text-dim); font-family:'Outfit';
+  }
+  .pill{
+    position:absolute; padding:9px 16px; border-radius:30px; font-size:13.5px; font-weight:600;
+    animation:float 5s ease-in-out infinite;
+  }
+  .pill-java{top:-4%; left:-14%; background:rgba(245,166,35,0.12); color:#f5a623; border:1px solid rgba(245,166,35,0.3);}
+  .pill-react{top:8%; right:-16%; background:rgba(97,218,251,0.12); color:#61dafb; border:1px solid rgba(97,218,251,0.3); animation-delay:.6s;}
+  .pill-spring{bottom:10%; left:-18%; background:rgba(109,196,86,0.12); color:#6dc456; border:1px solid rgba(109,196,86,0.3); animation-delay:1.2s;}
+  .pill-aws{bottom:-4%; right:-10%; background:rgba(255,153,0,0.12); color:#ff9900; border:1px solid rgba(255,153,0,0.3); animation-delay:1.8s;}
+  @keyframes float{0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);}}
+
+  /* ===== ABOUT ===== */
+  .about-grid{display:grid; grid-template-columns:1.2fr 0.9fr; gap:60px;}
+  .stat-row{display:flex; gap:16px; margin-top:34px;}
+  .stat-card{flex:1; padding:22px 18px; text-align:center;}
+  .stat-num{font-size:26px; font-weight:700; color:var(--cyan); font-family:'Outfit';}
+  .stat-label{font-size:13px; color:var(--text-dim); margin-top:6px;}
+  .building-card{padding:28px;}
+  .badge-amber{
+    display:inline-block; padding:5px 13px; border-radius:20px; font-size:12px; font-weight:600;
+    background:rgba(245,166,35,0.15); color:var(--amber); border:1px solid rgba(245,166,35,0.3);
+    margin-bottom:16px;
+  }
+  .tech-chip{
+    display:inline-block; padding:6px 13px; border-radius:8px; font-size:12.5px; margin:4px 6px 0 0;
+    background:rgba(255,255,255,0.06); color:var(--text-dim); border:1px solid var(--glass-border);
+  }
+
+  /* ===== SKILLS ===== */
+  .skills-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
+  .skill-card{
+    padding:26px; border-left:3px solid var(--cyan);
+  }
+  .skill-card-head{display:flex; align-items:center; gap:12px; margin-bottom:18px;}
+  .skill-icon{
+    width:38px; height:38px; border-radius:10px; background:rgba(0,212,255,0.1);
+    display:flex; align-items:center; justify-content:center; color:var(--cyan);
+  }
+  .skill-card h4{font-size:17px; font-weight:600;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .skill-chip{
+    padding:6px 12px; border-radius:8px; font-size:12.5px;
+    background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:var(--text-dim);
+    transition:.2s;
+  }
+  .skill-chip:hover{border-color:var(--cyan); color:var(--cyan); box-shadow:0 0 12px rgba(0,212,255,0.2);}
+
+  /* ===== EXPERIENCE ===== */
+  .timeline{position:relative; padding:20px 0;}
+  .timeline::before{
+    content:''; position:absolute; left:50%; top:0; bottom:0; width:2px;
+    background:linear-gradient(180deg, var(--cyan), var(--violet));
+    transform:translateX(-50%);
+  }
+  .tl-item{display:grid; grid-template-columns:1fr 1fr; gap:60px; position:relative; margin-bottom:50px;}
+  .tl-dot{
+    position:absolute; left:50%; top:28px; width:14px; height:14px; border-radius:50%;
+    background:var(--cyan); transform:translateX(-50%);
+    box-shadow:0 0 0 6px rgba(0,212,255,0.15);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,212,255,0.4);} 100%{box-shadow:0 0 0 12px rgba(0,212,255,0);}}
+  .tl-card{padding:26px 28px; grid-column:1;}
+  .tl-item:nth-child(2) .tl-card{grid-column:2;}
+  .tl-company{font-size:19px; font-weight:700;}
+  .tl-role{color:var(--cyan); font-size:14px; font-weight:600; margin:4px 0;}
+  .tl-date{color:var(--text-dim); font-size:13px; margin-bottom:14px;}
+  .tl-card ul{padding-left:18px; font-size:14px; color:var(--text-dim); margin-bottom:14px;}
+  .tl-card li{margin-bottom:6px;}
+
+  /* ===== PROJECTS ===== */
+  .featured-card{padding:36px; margin-bottom:26px;}
+  .featured-head{display:flex; align-items:center; gap:14px; margin-bottom:10px;}
+  .featured-title{font-size:24px; font-weight:700;}
+  .project-actions{display:flex; gap:14px; margin-top:20px;}
+  .btn-ghost{
+    padding:10px 20px; border-radius:8px; font-size:13.5px; font-weight:600;
+    background:rgba(255,255,255,0.06); border:1px solid var(--glass-border);
+  }
+  .btn-ghost.primary{background:rgba(0,212,255,0.12); color:var(--cyan); border-color:rgba(0,212,255,0.3);}
+  .project-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .project-card{padding:26px;}
+  .project-card h4{font-size:17px; margin-bottom:8px;}
+  .project-card p{font-size:13.5px; color:var(--text-dim); margin-bottom:14px;}
+
+  /* ===== PASSIONS ===== */
+  .passion-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;}
+  .passion-card{
+    padding:30px; text-align:left; transition:transform .25s, box-shadow .25s;
+  }
+  .passion-card:hover{transform:translateY(-6px); box-shadow:0 0 30px rgba(0,212,255,0.18);}
+  .passion-icon{
+    width:52px; height:52px; border-radius:50%; background:rgba(0,212,255,0.1);
+    display:flex; align-items:center; justify-content:center; color:var(--cyan);
+    margin-bottom:18px;
+  }
+  .passion-card h4{font-size:17px; margin-bottom:8px;}
+  .passion-card p{font-size:13.5px; color:var(--text-dim);}
+
+  /* ===== CONTACT ===== */
+  .contact-grid{display:grid; grid-template-columns:0.8fr 1.2fr; gap:40px;}
+  .contact-info-card{padding:20px 24px; display:flex; align-items:center; gap:16px; margin-bottom:16px;}
+  .contact-info-card .icon-circle{background:rgba(0,212,255,0.1); color:var(--cyan); border-color:rgba(0,212,255,0.25); flex-shrink:0;}
+  .contact-label{font-size:12px; color:var(--text-dim);}
+  .contact-value{font-size:14.5px; font-weight:600;}
+  .form-card{padding:30px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
+  .field{
+    width:100%; padding:13px 16px; border-radius:10px; font-size:14px;
+    background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); color:var(--text);
+  }
+  .field::placeholder{color:var(--text-dim);}
+  textarea.field{resize:none; height:110px; margin-bottom:20px;}
+  .send-btn{
+    background:var(--cyan); color:#00131a; padding:13px 26px; border-radius:10px;
+    font-weight:600; font-size:14.5px; display:inline-flex; align-items:center; gap:8px;
+    box-shadow:0 0 24px rgba(0,212,255,0.3); cursor:pointer;
+  }
+
+  footer{
+    border-top:1px solid rgba(255,255,255,0.06); padding:28px 0;
+  }
+  footer .wrap{display:flex; align-items:center; justify-content:space-between;}
+  .footer-copy{font-size:13px; color:var(--text-dim);}
+  .footer-social{display:flex; gap:14px;}
+
+  /* ===== AI CHAT WIDGET ===== */
+  .chat-launcher{
+    position:fixed; bottom:28px; right:28px; z-index:200;
+    display:flex; align-items:center; gap:10px;
+    background:var(--cyan); color:#00131a; padding:14px 20px 14px 14px;
+    border-radius:32px; cursor:pointer; box-shadow:0 0 30px rgba(0,212,255,0.45);
+    font-weight:600; font-size:14px;
+  }
+  .chat-launcher .bubble-icon{
+    width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.15);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .chat-panel{
+    position:fixed; bottom:28px; right:28px; width:380px; max-width:calc(100vw - 40px);
+    z-index:200; display:none; flex-direction:column;
+    background:rgba(13,20,36,0.85); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--glass-border); border-radius:20px; overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  }
+  .chat-header{
+    display:flex; align-items:center; gap:12px; padding:16px 18px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    background:rgba(255,255,255,0.03);
+  }
+  .chat-header .bot-icon{
+    width:34px; height:34px; border-radius:50%; background:rgba(0,212,255,0.15);
+    display:flex; align-items:center; justify-content:center; color:var(--cyan);
+  }
+  .chat-header h5{font-size:14.5px; font-weight:600; flex:1;}
+  .chat-close{cursor:pointer; color:var(--text-dim); font-size:18px;}
+  .chat-body{padding:18px; min-height:180px;}
+  .ai-bubble{
+    background:rgba(255,255,255,0.06); padding:12px 15px; border-radius:14px 14px 14px 4px;
+    font-size:13.5px; color:var(--text-dim); max-width:85%; margin-bottom:16px;
+  }
+  .suggested-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .suggested-chip{
+    padding:7px 12px; border-radius:16px; font-size:12px;
+    background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.25); color:var(--cyan);
+    cursor:pointer;
+  }
+  .chat-input-row{
+    display:flex; align-items:center; gap:10px; padding:14px 16px;
+    border-top:1px solid rgba(255,255,255,0.06);
+  }
+  .chat-input-row input{
+    flex:1; background:transparent; border:none; outline:none; color:var(--text); font-size:13.5px;
+  }
+  .chat-send{
+    width:34px; height:34px; border-radius:50%; background:var(--cyan); color:#00131a;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+  }
+  .dots{display:flex; gap:4px; padding:0 4px;}
+  .dots span{width:5px; height:5px; border-radius:50%; background:var(--text-dim); animation:dotpulse 1.2s infinite;}
+  .dots span:nth-child(2){animation-delay:.2s;} .dots span:nth-child(3){animation-delay:.4s;}
+  @keyframes dotpulse{0%,60%,100%{opacity:.3;} 30%{opacity:1;}}
+
+  @media (max-width:900px){
+    .hero .wrap, .about-grid, .contact-grid{grid-template-columns:1fr;}
+    .skills-grid, .project-grid, .passion-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .tl-item, .tl-item:nth-child(2) .tl-card{grid-template-columns:1fr;}
+    .tl-card, .tl-item:nth-child(2) .tl-card{grid-column:1;}
+    .timeline::before{left:20px;}
+    .tl-dot{left:20px;}
+    .nav-links{display:none;}
+    .hero-name{font-size:42px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 1. NAVIGATION BAR ===== -->
+<header>
+  <nav>
+    <div class="logo">SK</div>
+    <ul class="nav-links">
+      <li><a href="#hero" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ===== 2. HERO ===== -->
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div>
+      <p class="hero-greet">Hi, I'm</p>
+      <h1 class="hero-name">Satheesh Kumar P<span class="underline"></span></h1>
+      <div class="typing">Full Stack Developer | Java/Spring Boot Engineer</div>
+      <p class="hero-desc">I build reliable, scalable backend systems and clean web interfaces — turning complex problems into production-ready software.</p>
+      <div class="btn-row">
+        <div class="btn btn-fill">View My Work →</div>
+        <div class="btn btn-outline">Download Resume ⬇</div>
+      </div>
+      <div class="social-row">
+        <div class="icon-circle">GH</div>
+        <div class="icon-circle">in</div>
+      </div>
+    </div>
+    <div class="avatar-wrap">
+      <div class="pill pill-java">Java</div>
+      <div class="pill pill-react">React</div>
+      <div class="pill pill-spring">Spring</div>
+      <div class="pill pill-aws">AWS</div>
+      <div class="avatar-ring">
+        <div class="avatar-img">SK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. ABOUT ===== -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <span class="eyebrow">Get to know me</span>
+      <h2 class="section-title">About Me</h2>
+      <p style="color:var(--text-dim); font-size:15.5px; max-width:520px;">
+        I'm a backend-leaning full-stack developer specializing in Java and Spring Boot,
+        with hands-on experience shipping production features, resolving critical bugs,
+        and optimizing API performance at scale. I care about clean architecture and
+        measurable impact.
+      </p>
+      <div class="stat-row">
+        <div class="glass stat-card"><div class="stat-num">2.5</div><div class="stat-label">Years Experience</div></div>
+        <div class="glass stat-card"><div class="stat-num">15+</div><div class="stat-label">Production Bugs Resolved</div></div>
+        <div class="glass stat-card"><div class="stat-num">20%</div><div class="stat-label">API Improvement</div></div>
+      </div>
+    </div>
+    <div class="glass building-card">
+      <span class="badge-amber">● In Progress</span>
+      <h3 style="font-size:20px; margin-bottom:10px;">Civil Platform</h3>
+      <p style="color:var(--text-dim); font-size:14px; margin-bottom:14px;">
+        A construction-management SaaS product for tracking site progress, materials,
+        and contractor workflows — built end-to-end as a solo project.
+      </p>
+      <div>
+        <span class="tech-chip">Spring Boot</span>
+        <span class="tech-chip">React</span>
+        <span class="tech-chip">PostgreSQL</span>
+        <span class="tech-chip">AWS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. TECHNICAL SKILLS ===== -->
+<section id="skills" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <span class="eyebrow">Toolbox</span>
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-sub">The languages, frameworks, and tools I use to ship production software.</p>
+    <div class="skills-grid">
+      <div class="glass skill-card">
+        <div class="skill-card-head"><div class="skill-icon">⚙</div><h4>Backend</h4></div>
+        <div class="chip-row">
+          <span class="skill-chip">Java 21</span>
+          <span class="skill-chip">Spring Boot 3.x</span>
+          <span class="skill-chip">Spring Security</span>
+          <span class="skill-chip">Spring Cache</span>
+          <span class="skill-chip">Spring AI</span>
+          <span class="skill-chip">Spring Retry</span>
+          <span class="skill-chip">Lombok</span>
+          <span class="skill-chip">MapStruct</span>
+          <span class="skill-chip">REST APIs</span>
+        </div>
+      </div>
+      <div class="glass skill-card">
+        <div class="skill-card-head"><div class="skill-icon">◧</div><h4>Frontend</h4></div>
+        <div class="chip-row">
+          <span class="skill-chip">React 18</span>
+          <span class="skill-chip">Vite</span>
+          <span class="skill-chip">React Query</span>
+          <span class="skill-chip">Zustand</span>
+          <span class="skill-chip">Framer Motion</span>
+          <span class="skill-chip">Axios</span>
+          <span class="skill-chip">HTML5/CSS3</span>
+          <span class="skill-chip">Tailwind</span>
+        </div>
+      </div>
+      <div class="glass skill-card">
+        <div class="skill-card-head"><div class="skill-icon">⛁</div><h4>Database & Cache</h4></div>
+        <div class="chip-row">
+          <span class="skill-chip">PostgreSQL</span>
+          <span class="skill-chip">Redis (Upstash)</span>
+          <span class="skill-chip">Flyway DB</span>
+          <span class="skill-chip">Full-Text Search</span>
+          <span class="skill-chip">MySQL</span>
+        </div>
+      </div>
+      <div class="glass skill-card">
+        <div class="skill-card-head"><div class="skill-icon">⚡</div><h4>Messaging & AI</h4></div>
+        <div class="chip-row">
+          <span class="skill-chip">Apache Kafka</span>
+          <span class="skill-chip">Consumer Groups</span>
+          <span class="skill-chip">Gemini 1.5 Flash</span>
+          <span class="skill-chip">SSE Streaming</span>
+        </div>
+      </div>
+      <div class="glass skill-card">
+        <div class="skill-card-head"><div class="skill-icon">✓</div><h4>Testing</h4></div>
+        <div class="chip-row">
+          <span class="skill-chip">JUnit 5</span>
+          <span class="skill-chip">Mockito</span>
+          <span class="skill-chip">Testcontainers</span>
+          <span class="skill-chip">Cypress E2E</span>
+          <span class="skill-chip">Vitest</span>
+          <span class="skill-chip">React Testing Library</span>
+        </div>
+      </div>
+      <div class="glass skill-card">
+        <div class="skill-card-head"><div class="skill-icon">☁</div><h4>DevOps & Cloud</h4></div>
+        <div class="chip-row">
+          <span class="skill-chip">Docker</span>
+          <span class="skill-chip">GitHub Actions</span>
+          <span class="skill-chip">AWS S3</span>
+          <span class="skill-chip">CloudFront</span>
+          <span class="skill-chip">App Runner</span>
+          <span class="skill-chip">ECR</span>
+          <span class="skill-chip">SonarCloud</span>
+          <span class="skill-chip">CodeQL</span>
+          <span class="skill-chip">Gitleaks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. WORK EXPERIENCE TIMELINE ===== -->
+<section id="experience">
+  <div class="wrap">
+    <span class="eyebrow">Career path</span>
+    <h2 class="section-title" style="margin-bottom:52px;">Work Experience</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="glass tl-card">
+          <div class="tl-company">HCL Technologies</div>
+          <div class="tl-role">Software Developer</div>
+          <div class="tl-date">Mar 2025 – Present</div>
+          <ul>
+            <li>Developed and maintained backend services for enterprise client applications.</li>
+            <li>Resolved high-priority production issues, improving system stability.</li>
+            <li>Collaborated with cross-functional teams on feature delivery.</li>
+          </ul>
+          <div><span class="tech-chip">Java</span><span class="tech-chip">Spring Boot</span><span class="tech-chip">Microservices</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="glass tl-card">
+          <div class="tl-company">Profit.co</div>
+          <div class="tl-role">Junior Software Engineer</div>
+          <div class="tl-date">Apr 2024 – Mar 2025</div>
+          <ul>
+            <li>Built and shipped API features for the OKR management platform.</li>
+            <li>Improved key API response times by 20% through query optimization.</li>
+            <li>Wrote unit and integration tests to strengthen release quality.</li>
+          </ul>
+          <div><span class="tech-chip">Java</span><span class="tech-chip">Spring</span><span class="tech-chip">MySQL</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. PROJECTS ===== -->
+<section id="projects" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <span class="eyebrow">Selected work</span>
+    <h2 class="section-title">Projects & Case Studies</h2>
+    <p class="section-sub">Production-grade systems designed and built end-to-end.</p>
+
+    <!-- Featured Project: Civil Platform -->
+    <div class="glass featured-card">
+      <div class="featured-head">
+        <span class="badge-amber">● In Progress</span>
+      </div>
+      <div class="featured-title">Civil Platform — Construction SaaS</div>
+      <p style="color:var(--text-dim); font-size:14.5px; max-width:680px; margin-top:8px;">
+        A multi-tenant SaaS platform for construction companies to digitize site workforce management, automated geo-fenced attendance, payroll calculation, and real-time site reporting. Architected with full HLD/LLD documentation and DevSecOps CI/CD pipelines.
+      </p>
+      <div style="margin-top:16px;">
+        <span class="tech-chip">Java 21</span>
+        <span class="tech-chip">Spring Boot 3</span>
+        <span class="tech-chip">Spring Security</span>
+        <span class="tech-chip">PostgreSQL</span>
+        <span class="tech-chip">Redis</span>
+        <span class="tech-chip">Flyway</span>
+        <span class="tech-chip">React</span>
+        <span class="tech-chip">AWS App Runner</span>
+      </div>
+      <div class="project-actions">
+        <div class="btn-ghost">GitHub ↗</div>
+        <div class="btn-ghost primary">View Case Study →</div>
+      </div>
+    </div>
+
+    <!-- Secondary Project: Developer Portfolio -->
+    <div class="glass featured-card" style="margin-bottom:0; border-left:3px solid var(--cyan);">
+      <div class="featured-head">
+        <span class="badge-amber" style="background:rgba(0,212,255,0.15); color:var(--cyan); border-color:rgba(0,212,255,0.3);">● Live System</span>
+      </div>
+      <div class="featured-title">Developer Portfolio Microservices</div>
+      <p style="color:var(--text-dim); font-size:14.5px; max-width:680px; margin-top:8px;">
+        A full-stack microservices portfolio featuring Spring Boot 3, Spring AI Gemini chatbot, Apache Kafka event-driven email notifications, Redis rate limiting & caching, Testcontainers integration testing, and automated AWS cloud deployment via GitHub Actions.
+      </p>
+      <div style="margin-top:16px;">
+        <span class="tech-chip">Spring Boot 3</span>
+        <span class="tech-chip">Apache Kafka</span>
+        <span class="tech-chip">Spring AI</span>
+        <span class="tech-chip">Redis</span>
+        <span class="tech-chip">Testcontainers</span>
+        <span class="tech-chip">Cypress</span>
+        <span class="tech-chip">GitHub Actions</span>
+        <span class="tech-chip">AWS S3/CloudFront</span>
+      </div>
+      <div class="project-actions">
+        <div class="btn-ghost">GitHub Repository ↗</div>
+        <div class="btn-ghost primary">Architecture Docs →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. PASSIONS / BEYOND CODE ===== -->
+<section id="passions">
+  <div class="wrap">
+    <span class="eyebrow">Off the clock</span>
+    <h2 class="section-title">Beyond Code</h2>
+    <p class="section-sub">What drives me outside of work</p>
+    <div class="passion-grid">
+      <div class="glass passion-card">
+        <div class="passion-icon">🧠</div>
+        <h4>Problem Solving / DSA</h4>
+        <p>Sharpening fundamentals daily through algorithmic challenges and competitive practice.</p>
+      </div>
+      <div class="glass passion-card">
+        <div class="passion-icon">🚀</div>
+        <h4>Building SaaS Products</h4>
+        <p>Designing and shipping side projects end-to-end, from idea to deployed product.</p>
+      </div>
+      <div class="glass passion-card">
+        <div class="passion-icon">🎤</div>
+        <h4>Tech Talks & Conferences</h4>
+        <p>Attending and speaking at community meetups to learn and share engineering practices.</p>
+      </div>
+      <div class="glass passion-card">
+        <div class="passion-icon">⛰</div>
+        <h4>Trekking & Travelling</h4>
+        <p>Exploring new trails and places to reset and stay inspired outside of screens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. CONTACT + FOOTER ===== -->
+<section id="contact" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <span class="eyebrow">Get in touch</span>
+    <h2 class="section-title">Let's Connect</h2>
+    <p class="section-sub">Have a role, project, or idea in mind? I'd love to hear about it.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="glass contact-info-card">
+          <div class="icon-circle">✉</div>
+          <div><div class="contact-label">Email</div><div class="contact-value">psatheeshkumar89@gmail.com</div></div>
+        </div>
+        <div class="glass contact-info-card">
+          <div class="icon-circle">in</div>
+          <div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/satheeshkumarp</div></div>
+        </div>
+        <div class="glass contact-info-card">
+          <div class="icon-circle">GH</div>
+          <div><div class="contact-label">GitHub</div><div class="contact-value">github.com/satheeshkumarp</div></div>
+        </div>
+        <div class="glass contact-info-card">
+          <div class="icon-circle">📍</div>
+          <div><div class="contact-label">Location</div><div class="contact-value">Aruppukottai, Tamil Nadu</div></div>
+        </div>
+      </div>
+      <div class="glass form-card">
+        <div class="form-row">
+          <input class="field" placeholder="Your Name">
+          <input class="field" placeholder="Your Email">
+        </div>
+        <input class="field" placeholder="Subject" style="margin-bottom:16px;">
+        <textarea class="field" placeholder="Your Message"></textarea>
+        <div class="send-btn">Send Message →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-copy">© 2026 Satheesh Kumar P. All rights reserved.</div>
+    <div class="footer-social">
+      <div class="icon-circle">GH</div>
+      <div class="icon-circle">in</div>
+      <div class="icon-circle">✉</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== 9. FLOATING AI CHAT WIDGET ===== -->
+<div class="chat-launcher" id="chatLauncher" onclick="toggleChat()">
+  <div class="bubble-icon">✦</div>
+  <span>Ask AI</span>
+</div>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="bot-icon">🤖</div>
+    <h5>Ask About Satheesh</h5>
+    <div class="chat-close" onclick="toggleChat()">✕</div>
+  </div>
+  <div class="chat-body">
+    <div class="ai-bubble">Hi! I'm Satheesh's AI assistant. Ask me anything about his experience, skills, or projects.</div>
+    <div class="suggested-row">
+      <div class="suggested-chip">What's his tech stack?</div>
+      <div class="suggested-chip">Tell me about Civil Platform</div>
+      <div class="suggested-chip">Is he open to work?</div>
+    </div>
+  </div>
+  <div class="chat-input-row">
+    <input placeholder="Type a message...">
+    <div class="dots"><span></span><span></span><span></span></div>
+    <div class="chat-send">➤</div>
+  </div>
+</div>
+
+<script>
+  function toggleChat(){
+    const panel = document.getElementById('chatPanel');
+    const launcher = document.getElementById('chatLauncher');
+    const isOpen = panel.style.display === 'flex';
+    panel.style.display = isOpen ? 'none' : 'flex';
+    launcher.style.display = isOpen ? 'flex' : 'none';
+  }
+</script>
+
+</body>
+</html>
