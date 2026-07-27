@@ -1,6 +1,6 @@
 name: Frontend CI/CD Pipeline
 
-on: 
+on:
   push:
     branches: [ main, develop ]
     paths:
@@ -9,8 +9,10 @@ on:
     branches: [ main ]
     paths:
       - 'frontend/**'
-#jobs:
+
+jobs:
   build-and-test:
+    name: Build, Test & Package Frontend
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -30,5 +32,15 @@ on:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build React App
+      - name: Run Vitest Unit & State Suite
+        run: npx vitest run
+
+      - name: Build Vite Production Bundle
         run: npm run build
+
+      - name: Upload Production Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist/
+          retention-days: 7

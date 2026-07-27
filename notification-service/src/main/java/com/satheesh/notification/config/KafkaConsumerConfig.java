@@ -1,6 +1,7 @@
 package com.satheesh.notification.config;
 
 import com.satheesh.common.constants.AppConstants;
+import com.satheesh.notification.kafka.event.ContactSubmittedEvent;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,9 +20,9 @@ import java.util.Map;
 /**
  * @author Satheesh Kumar P
  * @since 2026-07-27
- * @version 1.0.0
+ * @version 2.1.0
  * 
- * @description Configuration for Apache Kafka Listener Container Factory in notification-service.
+ * @description Kafka Consumer Factory with JsonDeserializer configured for ContactSubmittedEvent.
  */
 @Configuration
 @EnableKafka
@@ -31,21 +32,24 @@ public class KafkaConsumerConfig {
     private String bootstrapServers;
 
     @Bean
-    public ConsumerFactory<String, Object> consumerFactory() {
+    public ConsumerFactory<String, ContactSubmittedEvent> consumerFactory() {
+        JsonDeserializer<ContactSubmittedEvent> jsonDeserializer = new JsonDeserializer<>(ContactSubmittedEvent.class);
+        jsonDeserializer.addTrustedPackages("*");
+        jsonDeserializer.setUseTypeHeaders(false);
+
+        ErrorHandlingDeserializer<ContactSubmittedEvent> errorDeserializer = new ErrorHandlingDeserializer<>(jsonDeserializer);
+
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, AppConstants.KAFKA_NOTIFICATION_GROUP_ID);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
-        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class.getName());
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 
-        return new DefaultKafkaConsumerFactory<>(props);
+        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), errorDeserializer);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Object> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, ContactSubmittedEvent> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, ContactSubmittedEvent> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;

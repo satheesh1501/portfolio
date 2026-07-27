@@ -4,9 +4,9 @@ import { usePortfolioStore } from '../../store/usePortfolioStore';
 /**
  * @author Satheesh Kumar P
  * @since 2026-07-27
- * @version 1.0.0
+ * @version 2.1.0
  * 
- * @description Global notification toast component.
+ * @description Global notification toast component with fallback Vanilla CSS styles and toast-container class for test assertions.
  */
 export const Toast = () => {
   const { toast, hideToast } = usePortfolioStore();
@@ -14,19 +14,62 @@ export const Toast = () => {
   if (!toast) return null;
 
   const isSuccess = toast.type === 'success';
+  const isWarning = toast.type === 'warning';
 
   return (
-    <div className="fixed top-20 right-4 z-50 animate-bounce">
+    <div
+      className="toast-container"
+      style={{
+        position: 'fixed',
+        top: '90px',
+        right: '28px',
+        zIndex: 9999,
+        animation: 'slideInRight 0.3s ease-out forwards',
+      }}
+    >
       <div
-        className={`px-4 py-3 rounded-xl border shadow-2xl flex items-center gap-3 text-xs font-semibold ${
-          isSuccess
-            ? 'bg-emerald-950/90 border-emerald-500/80 text-emerald-200'
-            : 'bg-red-950/90 border-red-500/80 text-red-200'
-        }`}
+        style={{
+          padding: '14px 20px',
+          borderRadius: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          fontSize: '13.5px',
+          fontWeight: '500',
+          fontFamily: "'Inter', sans-serif",
+          boxShadow: '0 12px 36px rgba(0,0,0,0.5), 0 0 20px rgba(0,212,255,0.2)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: isSuccess
+            ? '1px solid rgba(0, 212, 255, 0.6)'
+            : isWarning
+            ? '1px solid rgba(245, 166, 35, 0.6)'
+            : '1px solid rgba(255, 77, 77, 0.6)',
+          background: isSuccess
+            ? 'rgba(10, 25, 45, 0.95)'
+            : isWarning
+            ? 'rgba(35, 25, 10, 0.95)'
+            : 'rgba(35, 10, 15, 0.95)',
+          color: isSuccess ? '#00d4ff' : isWarning ? '#f5a623' : '#ff4d4d',
+          maxWidth: '420px',
+        }}
       >
-        <span>{isSuccess ? '✅' : '⚠️'}</span>
-        <span>{toast.message}</span>
-        <button onClick={hideToast} className="ml-2 text-slate-400 hover:text-white">
+        <span style={{ fontSize: '16px' }}>
+          {isSuccess ? '✅' : isWarning ? '⏳' : '⚠️'}
+        </span>
+        <span style={{ flex: 1, lineHeight: '1.5' }}>{toast.message}</span>
+        <button
+          onClick={hideToast}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: 'var(--slate-400)',
+            cursor: 'pointer',
+            fontSize: '16px',
+            marginLeft: '8px',
+            padding: '2px 4px',
+          }}
+        >
           ✕
         </button>
       </div>

@@ -10,11 +10,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 /**
- * JPA entity for contact form submissions.
- * Maps to the 'contact_messages' table created by V1 Flyway migration.
- *
- * Timestamps are managed by Hibernate (@CreationTimestamp / @UpdateTimestamp)
- * — no Spring Data Auditing config required.
+ * @author Satheesh Kumar P
+ * @since 2026-07-27
+ * @version 1.0.0
+ * 
+ * @description JPA Entity representing contact form submission records.
+ * Maps directly to PostgreSQL table 'contact_messages'. Uses Hibernate automatic auditing
+ * (@CreationTimestamp and @UpdateTimestamp) for timestamp tracking.
  */
 @Entity
 @Table(name = "contact_messages")
@@ -49,7 +51,7 @@ public class ContactMessage {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
 
-    /** Captured from HttpServletRequest for rate-limiting and analytics. */
+    /** Captured from HttpServletRequest for rate-limiting and audit tracking. */
     @Column(name = "ip_address", length = 45)
     private String ipAddress;
 
@@ -58,12 +60,12 @@ public class ContactMessage {
     @Builder.Default
     private ContactStatus status = ContactStatus.PENDING;
 
-    /** Set once at insert. Hibernate-managed — no @EnableJpaAuditing needed. */
+    /** Set automatically on initial SQL insert. */
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    /** Updated automatically by Hibernate on every save/merge. */
+    /** Updated automatically on entity modification. */
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;

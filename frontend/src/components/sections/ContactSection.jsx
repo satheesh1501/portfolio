@@ -1,148 +1,201 @@
 import React, { useState } from 'react';
-import { UIConstants } from '../../constants/UIConstants';
 import { contactService } from '../../services/contactService';
 import { usePortfolioStore } from '../../store/usePortfolioStore';
 
 /**
  * @author Satheesh Kumar P
  * @since 2026-07-27
- * @version 1.0.0
+ * @version 3.2.0
  * 
- * @description Interactive Contact Form section connected to POST /api/v1/contact.
- * Features client-side validation, rate limit handling, and toast feedback.
+ * @description ContactSection with LeetCode profile card integration.
  */
 export const ContactSection = () => {
-  const { showToast } = usePortfolioStore();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const { showToast } = usePortfolioStore();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required.';
+    } else if (formData.name.length > 100) {
+      newErrors.name = 'Name cannot exceed 100 characters.';
+    } else if (!/^[a-zA-Z\s'\-]+$/.test(formData.name)) {
+      newErrors.name = 'Name can only contain letters, spaces, and hyphens.';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required.';
+    } else if (formData.email.length > 100) {
+      newErrors.email = 'Email cannot exceed 100 characters.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address (e.g. name@domain.com).';
+    }
+
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required.';
+    } else if (formData.subject.length > 150) {
+      newErrors.subject = 'Subject cannot exceed 150 characters.';
+    } else if (!/^[a-zA-Z0-9\s.,!?'"\-]+$/.test(formData.subject)) {
+      newErrors.subject = 'Subject contains invalid special characters.';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required.';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters long.';
+    } else if (formData.message.length > 1000) {
+      newErrors.message = 'Message cannot exceed 1000 characters.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: null }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
+    if (!validate()) return;
 
+    setLoading(true);
     try {
       await contactService.submitContact(formData);
-      setSubmitted(true);
-      showToast(UIConstants.CONTACT.SUCCESS_DESC, 'success');
+      showToast('Your message has been sent to Satheesh! He will reach out to you soon.', 'success');
       setFormData({ name: '', email: '', subject: '', message: '' });
+      setErrors({});
     } catch (err) {
-      showToast(err.message || UIConstants.CONTACT.ERROR_TITLE, 'error');
+      const errorMsg = err.response?.data?.error || err.message || '';
+      if (errorMsg.includes('submitted a message recently') || err.response?.status === 400 || err.response?.status === 429) {
+        showToast('You have submitted a message recently. Please wait a couple of minutes before submitting again. Thank you for understanding!', 'warning');
+      } else {
+        showToast(errorMsg || 'Failed to send message. Please try again.', 'error');
+      }
     } finally {
-      setSubmitting(false);
+      setLoading(false);
     }
   };
 
   return (
-    <section id="contact" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="section-title">{UIConstants.CONTACT.TITLE}</h2>
-          <p className="section-subtitle">{UIConstants.CONTACT.SUBTITLE}</p>
-        </div>
+    <section className="contact-section" id="contact">
+      <div className="contact-wrap">
+        <span className="eyebrow">Get in touch</span>
+        <h2 className="contact-title">Let's Connect</h2>
+        <p className="contact-sub">Open to new engineering opportunities, SaaS discussions, and technical conversations.</p>
 
-        <div className="max-w-2xl mx-auto">
-          {submitted ? (
-            <div className="glass-panel p-8 text-center border-emerald-500/50">
-              <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
-                ✓
+        <div className="contact-grid">
+
+          {/* LEFT: Info Cards */}
+          <div className="info-col">
+            <div className="info-card">
+              <div className="info-icon">✉</div>
+              <div>
+                <div className="info-label">Email</div>
+                <div className="info-value">psatheeshkumar89@gmail.com</div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{UIConstants.CONTACT.SUCCESS_TITLE}</h3>
-              <p className="text-slate-300 text-sm mb-6">{UIConstants.CONTACT.SUCCESS_DESC}</p>
-              <button onClick={() => setSubmitted(false)} className="btn-secondary text-xs">
-                Send Another Message
-              </button>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="glass-panel p-6 sm:p-8 space-y-6">
+
+            <a className="info-card" href="https://www.linkedin.com/in/satheesh-kumar-p-24ab5427b/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+              <div className="info-icon">🔗</div>
+              <div>
+                <div className="info-label">LinkedIn</div>
+                <div className="info-value">linkedin.com/in/satheesh-kumar-p-24ab5427b</div>
+              </div>
+            </a>
+
+            <a className="info-card" href="https://github.com/satheesh1501" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+              <div className="info-icon">💻</div>
+              <div>
+                <div className="info-label">GitHub</div>
+                <div className="info-value">github.com/satheesh1501</div>
+              </div>
+            </a>
+
+            <a className="info-card" href="https://leetcode.com/u/satheeshkumar1501/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+              <div className="info-icon">🧩</div>
+              <div>
+                <div className="info-label">LeetCode (138+ Solved)</div>
+                <div className="info-value">leetcode.com/u/satheeshkumar1501</div>
+              </div>
+            </a>
+
+            <div className="info-card">
+              <div className="info-icon">📍</div>
+              <div>
+                <div className="info-label">Location</div>
+                <div className="info-value">Aruppukottai, Tamil Nadu</div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT: Form */}
+          <div className="form-card">
+            <form onSubmit={handleSubmit} noValidate>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                    {UIConstants.CONTACT.FORM_NAME_LABEL}
-                  </label>
+              <div className="form-row">
+                <div style={{ flex: 1 }}>
                   <input
                     type="text"
-                    name="name"
-                    required
-                    minLength={2}
+                    className={`field ${errors.name ? 'field-error' : ''}`}
                     maxLength={100}
+                    placeholder="Your Name"
                     value={formData.name}
-                    onChange={handleChange}
-                    placeholder={UIConstants.CONTACT.FORM_NAME_PLACEHOLDER}
-                    className="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                    onChange={(e) => handleChange('name', e.target.value)}
                   />
+                  {errors.name && <span className="error-text">{errors.name}</span>}
                 </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                    {UIConstants.CONTACT.FORM_EMAIL_LABEL}
-                  </label>
+                <div style={{ flex: 1 }}>
                   <input
                     type="email"
-                    name="email"
-                    required
-                    maxLength={150}
+                    className={`field ${errors.email ? 'field-error' : ''}`}
+                    maxLength={100}
+                    placeholder="Your Email"
                     value={formData.email}
-                    onChange={handleChange}
-                    placeholder={UIConstants.CONTACT.FORM_EMAIL_PLACEHOLDER}
-                    className="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                    onChange={(e) => handleChange('email', e.target.value)}
                   />
+                  {errors.email && <span className="error-text">{errors.email}</span>}
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                  {UIConstants.CONTACT.FORM_SUBJECT_LABEL}
-                </label>
+              <div style={{ marginBottom: errors.subject ? '8px' : '0' }}>
                 <input
                   type="text"
-                  name="subject"
-                  required
-                  minLength={5}
-                  maxLength={200}
+                  className={`field subject-field ${errors.subject ? 'field-error' : ''}`}
+                  maxLength={150}
+                  placeholder="Subject"
                   value={formData.subject}
-                  onChange={handleChange}
-                  placeholder={UIConstants.CONTACT.FORM_SUBJECT_PLACEHOLDER}
-                  className="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                  onChange={(e) => handleChange('subject', e.target.value)}
                 />
+                {errors.subject && <span className="error-text" style={{ marginTop: '-12px', marginBottom: '12px' }}>{errors.subject}</span>}
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                  {UIConstants.CONTACT.FORM_MESSAGE_LABEL}
-                </label>
                 <textarea
-                  name="message"
-                  required
-                  minLength={10}
-                  maxLength={2000}
-                  rows={5}
+                  className={`field ${errors.message ? 'field-error' : ''}`}
+                  maxLength={1000}
+                  placeholder="Your Message (minimum 10 characters)"
                   value={formData.message}
-                  onChange={handleChange}
-                  placeholder={UIConstants.CONTACT.FORM_MESSAGE_PLACEHOLDER}
-                  className="w-full bg-slate-900/90 border border-slate-700 rounded-lg px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors resize-none"
+                  onChange={(e) => handleChange('message', e.target.value)}
                 ></textarea>
+                {errors.message && <span className="error-text" style={{ marginTop: '-16px', marginBottom: '16px' }}>{errors.message}</span>}
               </div>
 
-              <button
-                type="submit"
-                disabled={submitting}
-                className="btn-primary w-full justify-center py-3.5 text-sm disabled:opacity-50"
-              >
-                {submitting ? UIConstants.CONTACT.SUBMITTING_BTN : UIConstants.CONTACT.SUBMIT_BTN}
+              <button type="submit" className="send-btn" disabled={loading}>
+                {loading ? 'Sending Message...' : 'Send Message →'}
               </button>
 
             </form>
-          )}
-        </div>
+          </div>
 
+        </div>
       </div>
     </section>
   );

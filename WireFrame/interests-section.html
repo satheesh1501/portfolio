@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satheesh Kumar P — Passions & Interests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f1e;
+    --surface:rgba(255,255,255,0.04);
+    --surface-border:rgba(255,255,255,0.09);
+    --cyan:#00d4ff;
+    --violet:#7c3aed;
+    --amber:#f5a623;
+    --text:#e6edf3;
+    --slate-400:#8b96a8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{ scroll-behavior:smooth; scroll-padding-top:90px; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(circle at 10% 10%, rgba(0,212,255,0.07), transparent 40%),
+      radial-gradient(circle at 90% 25%, rgba(124,58,237,0.10), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(245,166,35,0.04), transparent 40%);
+  }
+
+  /* ============ NAVBAR ============ */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,15,30,0.6);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  nav{
+    max-width:1280px;
+    margin:0 auto;
+    padding:18px 6vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-family:'Inter', sans-serif;
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--slate-400);
+    white-space:nowrap;
+  }
+  .brand .bolt{
+    color:var(--cyan);
+    font-size:16px;
+  }
+  .nav-links{
+    display:flex;
+    gap:30px;
+    list-style:none;
+  }
+  .nav-links a{
+    text-decoration:none;
+    font-family:'Inter', sans-serif;
+    font-size:14px;
+    font-weight:500;
+    color:var(--slate-400);
+    position:relative;
+    padding:6px 2px;
+    transition:color .25s ease;
+    white-space:nowrap;
+  }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-links a.active{
+    color:var(--cyan);
+  }
+  .nav-links a.active::after{
+    content:'';
+    position:absolute;
+    left:0; right:0; bottom:-6px;
+    height:2px;
+    background:var(--cyan);
+    border-radius:2px;
+    box-shadow:0 0 8px var(--cyan);
+  }
+
+  /* ============ PLACEHOLDER SECTIONS (scroll-spy anchors) ============ */
+  .stub-section{
+    position:relative; z-index:1;
+    min-height:60vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 6vw;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+  }
+  .stub-section h2{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:28px;
+    color:rgba(230,237,243,0.25);
+    letter-spacing:1px;
+  }
+  #home{ min-height:100vh; }
+
+  /* ============ INTERESTS SECTION ============ */
+  .interests-section{
+    position:relative; z-index:1;
+    padding:110px 6vw;
+  }
+
+  .interests-wrap{
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  .eyebrow{
+    display:inline-block;
+    font-family:'Fira Code', monospace;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    margin-bottom:16px;
+  }
+
+  h2.interests-title{
+    font-family:'Outfit', sans-serif;
+    font-weight:700;
+    font-size:40px;
+    color:#ffffff;
+    margin-bottom:14px;
+  }
+
+  .interests-sub{
+    font-size:15.5px;
+    line-height:1.7;
+    color:var(--slate-400);
+    max-width:620px;
+    margin-bottom:52px;
+  }
+
+  .interests-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:22px;
+  }
+
+  .interest-card{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--surface-border);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-radius:18px;
+    padding:28px 26px;
+    display:flex;
+    flex-direction:column;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .interest-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(0,212,255,0.35);
+    box-shadow:0 16px 38px rgba(0,0,0,0.35), 0 0 26px rgba(0,212,255,0.14);
+  }
+
+  .interest-icon{
+    width:52px; height:52px;
+    border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(0,212,255,0.1);
+    border:1px solid rgba(0,212,255,0.2);
+    font-size:24px;
+    margin-bottom:20px;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .interest-card:hover .interest-icon{
+    transform:scale(1.08);
+    box-shadow:0 0 20px rgba(0,212,255,0.3);
+  }
+
+  .interest-title{
+    font-family:'Outfit', sans-serif;
+    font-weight:600;
+    font-size:17px;
+    color:#ffffff;
+    margin-bottom:8px;
+    line-height:1.35;
+  }
+
+  .interest-subtitle{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--cyan);
+    margin-bottom:14px;
+  }
+
+  .interest-desc{
+    font-size:13.5px;
+    line-height:1.7;
+    color:var(--slate-400);
+    margin-bottom:20px;
+    flex:1;
+  }
+
+  .interest-tag{
+    display:inline-flex;
+    align-self:flex-start;
+    align-items:center;
+    font-family:'Fira Code', monospace;
+    font-size:11.5px;
+    font-weight:500;
+    padding:6px 13px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid var(--surface-border);
+    color:var(--slate-400);
+    transition:.25s ease;
+  }
+  .interest-card:hover .interest-tag{
+    color:var(--cyan);
+    border-color:rgba(0,212,255,0.4);
+    box-shadow:0 0 14px rgba(0,212,255,0.25);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:900px){
+    .nav-links{
+      display:none;
+    }
+    .interests-section{ padding:80px 6vw; }
+    h2.interests-title{ font-size:32px; }
+    .interests-grid{
+      grid-template-columns:1fr;
+      gap:18px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SCROLL-SPY NAVBAR ============ -->
+<header>
+  <nav>
+    <div class="brand"><span class="bolt">⚡</span> Turning complex logic into simple, scalable code.</div>
+    <ul class="nav-links">
+      <li><a href="#home" data-nav>Home</a></li>
+      <li><a href="#about" data-nav>About</a></li>
+      <li><a href="#skills" data-nav>Skills</a></li>
+      <li><a href="#experience" data-nav>Experience</a></li>
+      <li><a href="#projects" data-nav>Projects</a></li>
+      <li><a href="#interests" data-nav>Interests</a></li>
+      <li><a href="#contact" data-nav>Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============ PLACEHOLDER SECTIONS (for scroll-spy demo) ============ -->
+<section class="stub-section" id="home"><h2>Home Section</h2></section>
+<section class="stub-section" id="about"><h2>About Section</h2></section>
+<section class="stub-section" id="skills"><h2>Skills Section</h2></section>
+<section class="stub-section" id="experience"><h2>Experience Section</h2></section>
+<section class="stub-section" id="projects"><h2>Projects Section</h2></section>
+
+<!-- ============ PASSIONS & INTERESTS SECTION ============ -->
+<section class="interests-section" id="interests">
+  <div class="interests-wrap">
+    <span class="eyebrow">Beyond the code</span>
+    <h2 class="interests-title">Passions & Personal Interests</h2>
+    <p class="interests-sub">
+      What keeps me inspired, curious, and balanced outside of daily software
+      engineering.
+    </p>
+
+    <div class="interests-grid">
+
+      <div class="interest-card">
+        <div class="interest-icon">🧩</div>
+        <h3 class="interest-title">Problem Solving / DSA / LeetCode</h3>
+        <div class="interest-subtitle">Algorithmic Thinking & Logic</div>
+        <p class="interest-desc">
+          Practicing Data Structures & Algorithms, solving algorithmic
+          challenges on LeetCode, and optimizing time/space complexity.
+        </p>
+        <span class="interest-tag">Core Engineering</span>
+      </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">🚀</div>
+        <h3 class="interest-title">Building SaaS Products</h3>
+        <div class="interest-subtitle">Architecting End-to-End Solutions</div>
+        <p class="interest-desc">
+          Hands-on development of Civil Platform (Civil SaaS) and building
+          scalable full-stack microservice products from scratch with
+          friends.
+        </p>
+        <span class="interest-tag">Entrepreneurial</span>
+      </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">📺</div>
+        <h3 class="interest-title">Watching Tech Talks</h3>
+        <div class="interest-subtitle">Continuous Learning & Trends</div>
+        <p class="interest-desc">
+          Staying up-to-date with modern system architecture by watching
+          SpringOne, Google I/O, AWS re:Invent, and high-scalability tech
+          talks.
+        </p>
+        <span class="interest-tag">Industry Knowledge</span>
+      </div>
+
+      <div class="interest-card">
+        <div class="interest-icon">🏕️</div>
+        <h3 class="interest-title">Trekking, Fishing & Travelling</h3>
+        <div class="interest-subtitle">Outdoor Balance & Exploration</div>
+        <p class="interest-desc">
+          Unplugging outdoors through nature treks, quiet fishing trips, and
+          exploring new places to recharge and maintain balance.
+        </p>
+        <span class="interest-tag">Active Lifestyle</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLACEHOLDER CONTACT SECTION ============ -->
+<section class="stub-section" id="contact" style="min-height:80vh;"><h2>Contact Section</h2></section>
+
+<script>
+  // ===== Scroll-Spy: highlight active nav link based on scroll position =====
+  const navLinks = document.querySelectorAll('.nav-links a[data-nav]');
+  const sections = Array.from(navLinks).map(link =>
+    document.querySelector(link.getAttribute('href'))
+  );
+
+  function updateActiveLink(){
+    const scrollPos = window.scrollY + 110; // offset for fixed header
+    let currentIndex = 0;
+
+    sections.forEach((section, i) => {
+      if (section && section.offsetTop <= scrollPos) {
+        currentIndex = i;
+      }
+    });
+
+    navLinks.forEach(link => link.classList.remove('active'));
+    navLinks[currentIndex].classList.add('active');
+  }
+
+  window.addEventListener('scroll', updateActiveLink, { passive:true });
+  window.addEventListener('load', updateActiveLink);
+  window.addEventListener('resize', updateActiveLink);
+</script>
+
+</body>
+</html>

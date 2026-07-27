@@ -1,47 +1,66 @@
 import React from 'react';
-import { UIConstants } from '../../constants/UIConstants';
 
 /**
  * @author Satheesh Kumar P
  * @since 2026-07-27
- * @version 1.0.0
+ * @version 2.0.0
  * 
- * @description About section highlighting engineering philosophy and background.
+ * @description AboutSection matching WireFrame/about-section.html 100% with pulsing amber badge dot and hover chip glow.
  */
 export const AboutSection = () => {
   return (
-    <section id="about-details" className="py-20 bg-slate-900/50 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="section-title">{UIConstants.ABOUT.TITLE}</h2>
-          <p className="section-subtitle">{UIConstants.ABOUT.SUBTITLE}</p>
+    <section className="about-section" id="about">
+      <div className="about-grid">
+
+        {/* LEFT COLUMN */}
+        <div className="text-col">
+          <span className="eyebrow">Get to know me</span>
+          <h2 className="about-title">About Me</h2>
+          <p className="about-text">
+            Software Developer with 2.5 years of experience delivering enterprise
+            applications using Java, Spring Boot, PostgreSQL, and React. Currently
+            at HCL Technologies supporting global pharma client applications.
+            Passionate about clean architecture, test automation, and building
+            scalable SaaS solutions.
+          </p>
+
+          <div className="stat-row">
+            <div className="stat-card">
+              <div className="stat-num">2.5</div>
+              <div className="stat-label">Years Exp</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-num">15+</div>
+              <div className="stat-label">Prod Bugs Fixed</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-num">25%</div>
+              <div className="stat-label">API Perf Gain</div>
+            </div>
+          </div>
         </div>
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Text Narrative */}
-          <div className="lg:col-span-7 space-y-6 text-slate-300 leading-relaxed">
-            <p className="text-base sm:text-lg">
-              {UIConstants.ABOUT.DESCRIPTION_PARAGRAPH_1}
+        {/* RIGHT COLUMN */}
+        <div className="visual-col">
+          <div className="featured-card">
+            <span className="status-badge-amber">
+              <span className="dot-amber"></span> In Progress
+            </span>
+            <h3 className="featured-title">Civil Platform — Construction SaaS</h3>
+            <p className="featured-desc">
+              A multi-tenant construction SaaS for workforce tracking, geo-fenced
+              site attendance, payroll computation, and real-time site analytics
+              — built as a full-stack product.
             </p>
-            <p className="text-base sm:text-lg">
-              {UIConstants.ABOUT.DESCRIPTION_PARAGRAPH_2}
-            </p>
+            <div className="tech-badge-row">
+              <span className="tech-badge-item">Java 21</span>
+              <span className="tech-badge-item">Spring Boot 3</span>
+              <span className="tech-badge-item">PostgreSQL</span>
+              <span className="tech-badge-item">Redis</span>
+              <span className="tech-badge-item">React</span>
+              <span className="tech-badge-item">AWS</span>
+            </div>
           </div>
-
-          {/* Right Highlights Cards */}
-          <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {UIConstants.ABOUT.HIGHLIGHTS.map((item) => (
-              <div key={item.title} className="glass-panel p-5 border border-slate-800 hover:border-cyan-500/50 transition-colors">
-                <h3 className="font-bold text-white mb-2 text-base">{item.title}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-
         </div>
 
       </div>

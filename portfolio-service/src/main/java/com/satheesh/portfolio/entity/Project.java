@@ -12,11 +12,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * JPA entity for portfolio projects.
- * Maps to the 'projects' table created by V3 Flyway migration.
- *
- * tech_stack uses JSONB (via @JdbcTypeCode) — Hibernate 6 native approach.
- * Maps cleanly to List<String> in Java without any custom converter.
+ * @author Satheesh Kumar P
+ * @since 2026-07-27
+ * @version 1.0.0
+ * 
+ * @description JPA Entity representing software engineering portfolio projects.
+ * Maps to PostgreSQL table 'projects'. Uses Hibernate 6 native `@JdbcTypeCode(SqlTypes.JSON)`
+ * to map JSONB columns directly to `List<String>` without custom converters.
  */
 @Entity
 @Table(name = "projects")
@@ -40,9 +42,8 @@ public class Project {
     private String description;
 
     /**
-     * Tech stack stored as JSONB in PostgreSQL.
-     * Example DB value: ["Java 21","Spring Boot 3.2","React 18"]
-     * Hibernate 6 maps this directly to List<String> — no custom converter needed.
+     * Tech stack list stored as JSONB array in PostgreSQL.
+     * Example: ["Java 21", "Spring Boot 3", "React 18"]
      */
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "tech_stack", columnDefinition = "jsonb")
@@ -61,7 +62,7 @@ public class Project {
     @Builder.Default
     private Boolean featured = false;
 
-    /** Controls display ordering on the portfolio page. Lower = appears first. */
+    /** Sequence ordering index for frontend rendering (lower values appear first). */
     @Column(name = "display_order", nullable = false)
     @Builder.Default
     private Integer displayOrder = 0;

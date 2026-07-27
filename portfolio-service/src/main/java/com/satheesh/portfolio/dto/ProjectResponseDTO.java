@@ -3,14 +3,22 @@ package com.satheesh.portfolio.dto;
 import java.util.List;
 
 /**
- * Immutable response DTO for project data returned to the frontend.
+ * @author Satheesh Kumar P
+ * @since 2026-07-27
+ * @version 1.0.0
+ * 
+ * @description Immutable response DTO representing software project showcase details.
+ * Abstracts internal database columns like display order and audit timestamps from the REST payload.
  *
- * Intentionally hides internal entity fields from the API contract:
- *  - displayOrder (internal ordering column, not relevant to consumers)
- *  - createdAt    (internal audit field)
- *
- * status is exposed as a String (e.g. "ACTIVE", "IN_PROGRESS") so the
- * frontend can render a badge without needing knowledge of the Java enum.
+ * @param id Unique project ID
+ * @param title Project title/name
+ * @param description Detailed project architectural summary
+ * @param techStack Array of technologies used in the project
+ * @param githubUrl Target GitHub source code repository link
+ * @param liveUrl Live application production deployment URL
+ * @param caseStudyUrl Link to technical design breakdown or architecture document
+ * @param featured Flag indicating whether project should be highlighted in featured showcase
+ * @param status Project development status string representation (e.g., ACTIVE, IN_PROGRESS)
  */
 public record ProjectResponseDTO(
         Long id,

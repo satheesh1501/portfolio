@@ -4,15 +4,21 @@ import com.satheesh.common.validation.NoHtml;
 import jakarta.validation.constraints.*;
 
 /**
- * Immutable request DTO for incoming contact form submissions.
- *
+ * @author Satheesh Kumar P
+ * @since 2026-07-27
+ * @version 1.0.0
+ * 
+ * @description Immutable Java 21 record DTO for incoming contact form submissions.
  * Applies 4-layer security validation on every user-submitted field:
- *   Layer 1 — @NotBlank : field must not be null or empty string
- *   Layer 2 — @Size     : enforces min/max character length
- *   Layer 3 — @Pattern  : whitelist — only safe characters allowed
- *   Layer 4 — @NoHtml   : custom — blocks HTML tags and JS injection (XSS)
+ *   1. @NotBlank : Enforces non-null and non-empty text input
+ *   2. @Size     : Enforces strict min/max boundary constraints
+ *   3. @Pattern  : Whitelists safe alphanumeric and punctuation characters
+ *   4. @NoHtml   : Custom validator blocking HTML/JS injection payloads (XSS protection)
  *
- * Uses Java 21 Record for zero-boilerplate immutable data carrier.
+ * @param name Sender's full name
+ * @param email Sender's email address
+ * @param subject Contact message topic or inquiry title
+ * @param message Main body text of the contact inquiry
  */
 public record ContactRequestDTO(
 

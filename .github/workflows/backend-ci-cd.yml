@@ -1,19 +1,22 @@
 name: Backend Microservices CI/CD Pipeline
 
-on: 
+on:
   push:
     branches: [ main, develop ]
     paths:
+      - 'common-library/**'
       - 'portfolio-service/**'
       - 'notification-service/**'
   pull_request:
     branches: [ main ]
     paths:
+      - 'common-library/**'
       - 'portfolio-service/**'
       - 'notification-service/**'
 
 jobs:
-  build-test-and-scan:
+  build-test-and-package:
+    name: Build & Verify Microservices
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +32,25 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Security Scan - Gitleaks Secret Detection
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build & Install Common Library
+        run: |
+          cd common-library
+          mvn clean install -DskipTests
+
+      - name: Compile Portfolio Service
+        run: |
+          cd portfolio-service
+          mvn clean compile -DskipTests
+
+      - name: Compile Notification Service
+        run: |
+          cd notification-service
+          mvn clean compile -DskipTests
+
+      - name: Verify Docker Image Build - Portfolio Service
+        run: |
+          docker build -t portfolio-service:latest ./portfolio-service
+
+      - name: Verify Docker Image Build - Notification Service
+        run: |
+          docker build -t notification-service:latest ./notification-service

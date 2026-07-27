@@ -1,42 +1,86 @@
-import React from 'react';
-import { UIConstants } from '../../constants/UIConstants';
+import React, { useState } from 'react';
 
 /**
  * @author Satheesh Kumar P
  * @since 2026-07-27
- * @version 1.0.0
+ * @version 2.1.0
  * 
- * @description Categorized technical skills grid.
+ * @description SkillsSection matching WireFrame/skills-section.html 100% where chips glow cyan on hover.
  */
 export const SkillsSection = () => {
-  return (
-    <section id="skills" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="section-title">{UIConstants.SKILLS.TITLE}</h2>
-          <p className="section-subtitle">{UIConstants.SKILLS.SUBTITLE}</p>
-        </div>
+  const [selectedChips, setSelectedChips] = useState([]);
 
-        {/* Skills Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {UIConstants.SKILLS.CATEGORIES.map((category) => (
-            <div key={category.name} className="glass-panel p-6 border border-slate-800 flex flex-col">
-              <h3 className="text-lg font-bold text-cyan-400 mb-4 pb-2 border-b border-slate-800">
-                {category.name}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {category.items.map((item) => (
-                  <span key={item} className="badge-tech bg-slate-900/80">
-                    {item}
+  const toggleChip = (chipName) => {
+    setSelectedChips((prev) =>
+      prev.includes(chipName)
+        ? prev.filter((c) => c !== chipName)
+        : [...prev, chipName]
+    );
+  };
+
+  const isSelected = (chipName) => selectedChips.includes(chipName);
+
+  const categories = [
+    {
+      title: "Backend",
+      icon: "⚙",
+      skills: ["Java 21", "Spring Boot 3.x", "Spring Security", "Spring Cache", "Spring AI", "Spring Retry", "Lombok", "MapStruct", "REST APIs"],
+    },
+    {
+      title: "Frontend",
+      icon: "◧",
+      skills: ["React 18", "Vite", "React Query", "Zustand", "Framer Motion", "Axios", "HTML5/CSS3", "Tailwind CSS"],
+    },
+    {
+      title: "Database & Cache",
+      icon: "⛁",
+      skills: ["PostgreSQL", "Redis (Upstash)", "Flyway DB", "Full-Text Search", "MySQL"],
+    },
+    {
+      title: "Messaging & AI",
+      icon: "⚡",
+      skills: ["Apache Kafka", "Consumer Groups", "Gemini 1.5 Flash", "SSE Streaming"],
+    },
+    {
+      title: "Testing",
+      icon: "✓",
+      skills: ["JUnit 5", "Mockito", "Testcontainers", "Cypress E2E", "Vitest", "React Testing Library"],
+    },
+    {
+      title: "DevOps & Cloud",
+      icon: "☁",
+      skills: ["Docker", "GitHub Actions", "AWS S3", "CloudFront", "App Runner", "ECR", "SonarCloud", "CodeQL", "Gitleaks"],
+    },
+  ];
+
+  return (
+    <section className="skills-section" id="skills">
+      <div className="skills-wrap">
+        <span className="eyebrow">Toolbox</span>
+        <h2 className="skills-title">Technical Skills</h2>
+        <p className="skills-sub">The languages, frameworks, and tools I use to design, build, and ship production software.</p>
+
+        <div className="skills-grid">
+          {categories.map((cat) => (
+            <div key={cat.title} className="skill-card">
+              <div className="skill-card-head">
+                <div className="skill-icon">{cat.icon}</div>
+                <h3>{cat.title}</h3>
+              </div>
+              <div className="chip-row">
+                {cat.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    onClick={() => toggleChip(skill)}
+                    className={`chip ${isSelected(skill) ? 'chip-active' : ''}`}
+                  >
+                    {skill}
                   </span>
                 ))}
               </div>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
