@@ -1,7 +1,7 @@
 package com.satheesh.portfolio.controller;
 
-import com.satheesh.portfolio.constants.AppConstants;
-import com.satheesh.portfolio.constants.MessageConstants;
+import com.satheesh.common.constants.AppConstants;
+import com.satheesh.common.constants.MessageConstants;
 import com.satheesh.portfolio.service.ResumeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

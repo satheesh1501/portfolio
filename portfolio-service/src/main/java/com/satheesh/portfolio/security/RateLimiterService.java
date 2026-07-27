@@ -1,8 +1,8 @@
 package com.satheesh.portfolio.security;
 
-import com.satheesh.portfolio.constants.MessageConstants;
+import com.satheesh.common.constants.MessageConstants;
 import com.satheesh.portfolio.exception.RateLimitExceededException;
-import com.satheesh.portfolio.util.AppLogger;
+import com.satheesh.common.util.AppLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public class RateLimiterService {
             long currentCount = (count != null) ? count : 0;
 
             if (currentCount >= maxRequests) {
-                AppLogger.warn(log, CLASS_NAME, "checkRateLimit", ip, MessageConstants.LOG_ACTION_RATE_LIMIT,
+                AppLogger.warn(log, "Portfolio-Service", CLASS_NAME, "checkRateLimit", ip, MessageConstants.LOG_ACTION_RATE_LIMIT,
                         "Rate limit exceeded. Count: " + currentCount + " / Max: " + maxRequests);
                 throw new RateLimitExceededException(MessageConstants.RATE_LIMIT_EXCEEDED);
             }
@@ -62,14 +62,14 @@ public class RateLimiterService {
             redisTemplate.opsForZSet().add(key, String.valueOf(now), now);
             redisTemplate.expire(key, windowMinutes + 1, TimeUnit.MINUTES);
 
-            AppLogger.info(log, CLASS_NAME, "checkRateLimit", ip, MessageConstants.LOG_ACTION_RATE_LIMIT,
+            AppLogger.info(log, "Portfolio-Service", CLASS_NAME, "checkRateLimit", ip, MessageConstants.LOG_ACTION_RATE_LIMIT,
                     "Rate limit passed. Count: " + (currentCount + 1) + " / Max: " + maxRequests);
 
         } catch (RateLimitExceededException e) {
             throw e;
         } catch (Exception e) {
             // Fail-open strategy: Log error but allow request if Redis fails
-            AppLogger.error(log, CLASS_NAME, "checkRateLimit", ip, MessageConstants.LOG_ACTION_RATE_LIMIT,
+            AppLogger.error(log, "Portfolio-Service", CLASS_NAME, "checkRateLimit", ip, MessageConstants.LOG_ACTION_RATE_LIMIT,
                     "Redis rate limiter encounter failure; failing open", e);
         }
     }

@@ -1,6 +1,6 @@
 package com.satheesh.portfolio.config;
 
-import com.satheesh.portfolio.constants.AppConstants;
+import com.satheesh.common.constants.AppConstants;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

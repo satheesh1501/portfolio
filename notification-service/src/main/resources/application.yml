@@ -4,21 +4,25 @@ server:
 spring:
   application:
     name: notification-service
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
   kafka:
     bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
     consumer:
-      group-id: notification-group
+      group-id: notification-service-group
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonSerializer
-mail:
-  host: ${MAIL_HOST:smtp.gmail.com}
-  port: ${MAIL_PORT:587}
-  username: ${MAIL_USERNAME:test@gmail.com}
-  password: ${MAIL_OASSWORD:testpassword}
-  properties:
-    mail:
-      smtp:
-        auth: true
-        starttls:
-          enable: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

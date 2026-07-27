@@ -1,7 +1,7 @@
 package com.satheesh.portfolio.service.impl;
 
-import com.satheesh.portfolio.constants.AppConstants;
-import com.satheesh.portfolio.constants.MessageConstants;
+import com.satheesh.common.constants.AppConstants;
+import com.satheesh.common.constants.MessageConstants;
 import com.satheesh.portfolio.dto.ContactRequestDTO;
 import com.satheesh.portfolio.dto.ContactResponseDTO;
 import com.satheesh.portfolio.entity.ContactMessage;
@@ -13,7 +13,7 @@ import com.satheesh.portfolio.mapper.ContactMapper;
 import com.satheesh.portfolio.repository.ContactMessageRepository;
 import com.satheesh.portfolio.security.RateLimiterService;
 import com.satheesh.portfolio.service.ContactService;
-import com.satheesh.portfolio.util.AppLogger;
+import com.satheesh.common.util.AppLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +60,7 @@ public class ContactServiceImpl implements ContactService {
         LocalDateTime fiveMinutesAgo = LocalDateTime.now().minusMinutes(5);
         List<ContactMessage> duplicates = repository.findByEmailAndCreatedAtAfter(requestDTO.email(), fiveMinutesAgo);
         if (!duplicates.isEmpty()) {
-            AppLogger.warn(log, CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_SUBMIT_CONTACT,
+            AppLogger.warn(log, "Portfolio-Service", CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_SUBMIT_CONTACT,
                     "Duplicate submission detected for email: " + requestDTO.email());
             throw new DuplicateSubmissionException(MessageConstants.DUPLICATE_SUBMISSION);
         }
@@ -71,7 +71,7 @@ public class ContactServiceImpl implements ContactService {
         entity.setStatus(ContactStatus.PENDING);
         ContactMessage savedEntity = repository.save(entity);
 
-        AppLogger.info(log, CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_SUBMIT_CONTACT,
+        AppLogger.info(log, "Portfolio-Service", CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_SUBMIT_CONTACT,
                 "Saved contact message to PostgreSQL with ID: " + savedEntity.getId());
 
         // Step 4: Publish Event to Apache Kafka

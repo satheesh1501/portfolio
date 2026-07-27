@@ -1,11 +1,11 @@
 package com.satheesh.portfolio.service.impl;
 
-import com.satheesh.portfolio.constants.AppConstants;
-import com.satheesh.portfolio.constants.MessageConstants;
+import com.satheesh.common.constants.AppConstants;
+import com.satheesh.common.constants.MessageConstants;
 import com.satheesh.portfolio.dto.ChatMessageDTO;
 import com.satheesh.portfolio.security.RateLimiterService;
 import com.satheesh.portfolio.service.ChatService;
-import com.satheesh.portfolio.util.AppLogger;
+import com.satheesh.common.util.AppLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class ChatServiceImpl implements ChatService {
                 AppConstants.CHAT_RATE_LIMIT_WINDOW_MINUTES
         );
 
-        AppLogger.info(log, CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_PROCESS_CHAT,
+        AppLogger.info(log, "Portfolio-Service", CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_PROCESS_CHAT,
                 "Processing AI Chat prompt: " + chatDTO.message());
 
         // Standardized contextual response for developer portfolio queries

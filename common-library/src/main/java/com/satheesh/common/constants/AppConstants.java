@@ -1,12 +1,11 @@
-package com.satheesh.portfolio.constants;
+package com.satheesh.common.constants;
 
 /**
  * @author Satheesh Kumar P
  * @since 2026-07-27
  * @version 1.0.0
  * 
- * @description Centralized repository for application-wide system constants.
- * Eliminates magic strings and hardcoded literals across controllers, services, and configurations.
+ * @description Shared repository for application-wide system constants across all microservices.
  */
 public final class AppConstants {
 
@@ -23,7 +22,8 @@ public final class AppConstants {
 
     // Kafka Topics & Group IDs
     public static final String KAFKA_CONTACT_TOPIC = "contact-notifications-topic";
-    public static final String KAFKA_GROUP_ID = "portfolio-service-group";
+    public static final String KAFKA_PORTFOLIO_GROUP_ID = "portfolio-service-group";
+    public static final String KAFKA_NOTIFICATION_GROUP_ID = "notification-service-group";
 
     // Redis Rate Limiting Keys & Prefixes
     public static final String REDIS_RATE_LIMIT_CONTACT_PREFIX = "rate_limit:contact:";
@@ -39,6 +39,9 @@ public final class AppConstants {
     public static final String HEADER_TRACE_ID = "X-Trace-Id";
     public static final String HEADER_FORWARDED_FOR = "X-Forwarded-For";
     public static final String UNKNOWN_IP = "UNKNOWN_IP";
+
+    // Email Settings
+    public static final String NOTIFICATION_EMAIL_TO = "psatheesh1501@gmail.com";
 
     // Cache Names
     public static final String CACHE_PROJECTS = "projects";

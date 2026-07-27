@@ -1,11 +1,11 @@
 package com.satheesh.portfolio.service.impl;
 
-import com.satheesh.portfolio.constants.AppConstants;
-import com.satheesh.portfolio.constants.MessageConstants;
+import com.satheesh.common.constants.AppConstants;
+import com.satheesh.common.constants.MessageConstants;
 import com.satheesh.portfolio.entity.ResumeDownloadEvent;
 import com.satheesh.portfolio.repository.ResumeDownloadRepository;
 import com.satheesh.portfolio.service.ResumeService;
-import com.satheesh.portfolio.util.AppLogger;
+import com.satheesh.common.util.AppLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public class ResumeServiceImpl implements ResumeService {
     @Transactional
     public void trackDownload(String ipAddress, String userAgent, String referer) {
         String methodName = "trackDownload";
-        AppLogger.info(log, CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_TRACK_RESUME,
+        AppLogger.info(log, "Portfolio-Service", CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_TRACK_RESUME,
                 "Tracking resume download event");
 
         ResumeDownloadEvent event = ResumeDownloadEvent.builder()
@@ -50,7 +50,7 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public Map<String, Object> getDownloadStats() {
         String methodName = "getDownloadStats";
-        AppLogger.info(log, CLASS_NAME, methodName, AppConstants.UNKNOWN_IP, MessageConstants.LOG_ACTION_TRACK_RESUME,
+        AppLogger.info(log, "Portfolio-Service", CLASS_NAME, methodName, AppConstants.UNKNOWN_IP, MessageConstants.LOG_ACTION_TRACK_RESUME,
                 "Calculating resume download metrics");
 
         long total = repository.count();

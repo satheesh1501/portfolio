@@ -1,7 +1,7 @@
 package com.satheesh.portfolio.service.impl;
 
-import com.satheesh.portfolio.constants.AppConstants;
-import com.satheesh.portfolio.constants.MessageConstants;
+import com.satheesh.common.constants.AppConstants;
+import com.satheesh.common.constants.MessageConstants;
 import com.satheesh.portfolio.dto.ProjectResponseDTO;
 import com.satheesh.portfolio.entity.Project;
 import com.satheesh.portfolio.enums.ProjectStatus;
@@ -9,7 +9,7 @@ import com.satheesh.portfolio.exception.ResourceNotFoundException;
 import com.satheesh.portfolio.mapper.ProjectMapper;
 import com.satheesh.portfolio.repository.ProjectRepository;
 import com.satheesh.portfolio.service.ProjectService;
-import com.satheesh.portfolio.util.AppLogger;
+import com.satheesh.common.util.AppLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Cacheable(value = AppConstants.CACHE_FEATURED_PROJECTS, key = "'featured'")
     public List<ProjectResponseDTO> getFeaturedProjects() {
         String methodName = "getFeaturedProjects";
-        AppLogger.info(log, CLASS_NAME, methodName, AppConstants.UNKNOWN_IP, MessageConstants.LOG_ACTION_GET_PROJECTS,
+        AppLogger.info(log, "Portfolio-Service", CLASS_NAME, methodName, AppConstants.UNKNOWN_IP, MessageConstants.LOG_ACTION_GET_PROJECTS,
                 "Fetching featured projects from PostgreSQL database (Cache Miss)");
 
         List<ProjectStatus> statuses = List.of(ProjectStatus.ACTIVE, ProjectStatus.IN_PROGRESS);
@@ -52,7 +52,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Cacheable(value = AppConstants.CACHE_PROJECTS, key = "#id")
     public ProjectResponseDTO getProjectById(Long id) {
         String methodName = "getProjectById";
-        AppLogger.info(log, CLASS_NAME, methodName, AppConstants.UNKNOWN_IP, MessageConstants.LOG_ACTION_GET_PROJECT_BY_ID,
+        AppLogger.info(log, "Portfolio-Service", CLASS_NAME, methodName, AppConstants.UNKNOWN_IP, MessageConstants.LOG_ACTION_GET_PROJECT_BY_ID,
                 "Fetching project by ID: " + id);
 
         Project project = repository.findById(id)

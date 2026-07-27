@@ -1,7 +1,7 @@
 package com.satheesh.portfolio.exception;
 
-import com.satheesh.portfolio.constants.MessageConstants;
-import com.satheesh.portfolio.util.AppLogger;
+import com.satheesh.common.constants.MessageConstants;
+import com.satheesh.common.util.AppLogger;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
             fieldErrors.put(error.getField(), error.getDefaultMessage());
         }
 
-        AppLogger.warn(log, CLASS_NAME, "handleValidationExceptions", ip, "VALIDATION_FAILED",
+        AppLogger.warn(log, "Portfolio-Service", CLASS_NAME, "handleValidationExceptions", ip, "VALIDATION_FAILED",
                 "Input validation failed: " + fieldErrors);
 
         Map<String, Object> body = new HashMap<>();
@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
             RateLimitExceededException ex, HttpServletRequest request) {
 
         String ip = extractIp(request);
-        AppLogger.warn(log, CLASS_NAME, "handleRateLimitExceeded", ip, "RATE_LIMIT_EXCEEDED", ex.getMessage());
+        AppLogger.warn(log, "Portfolio-Service", CLASS_NAME, "handleRateLimitExceeded", ip, "RATE_LIMIT_EXCEEDED", ex.getMessage());
 
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
@@ -85,7 +85,7 @@ public class GlobalExceptionHandler {
             DuplicateSubmissionException ex, HttpServletRequest request) {
 
         String ip = extractIp(request);
-        AppLogger.warn(log, CLASS_NAME, "handleDuplicateSubmission", ip, "DUPLICATE_SUBMISSION", ex.getMessage());
+        AppLogger.warn(log, "Portfolio-Service", CLASS_NAME, "handleDuplicateSubmission", ip, "DUPLICATE_SUBMISSION", ex.getMessage());
 
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
@@ -104,7 +104,7 @@ public class GlobalExceptionHandler {
             ResourceNotFoundException ex, HttpServletRequest request) {
 
         String ip = extractIp(request);
-        AppLogger.warn(log, CLASS_NAME, "handleResourceNotFound", ip, "RESOURCE_NOT_FOUND", ex.getMessage());
+        AppLogger.warn(log, "Portfolio-Service", CLASS_NAME, "handleResourceNotFound", ip, "RESOURCE_NOT_FOUND", ex.getMessage());
 
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
@@ -123,7 +123,7 @@ public class GlobalExceptionHandler {
             Exception ex, HttpServletRequest request) {
 
         String ip = extractIp(request);
-        AppLogger.error(log, CLASS_NAME, "handleGenericException", ip, "INTERNAL_ERROR",
+        AppLogger.error(log, "Portfolio-Service", CLASS_NAME, "handleGenericException", ip, "INTERNAL_ERROR",
                 MessageConstants.INTERNAL_SERVER_ERROR, ex);
 
         Map<String, Object> body = new HashMap<>();

@@ -1,6 +1,6 @@
 package com.satheesh.portfolio.dto;
 
-import com.satheesh.portfolio.validation.NoHtml;
+import com.satheesh.common.validation.NoHtml;
 import jakarta.validation.constraints.*;
 
 /**

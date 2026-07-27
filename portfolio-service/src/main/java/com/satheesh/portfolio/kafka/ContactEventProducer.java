@@ -1,9 +1,9 @@
 package com.satheesh.portfolio.kafka;
 
-import com.satheesh.portfolio.constants.AppConstants;
-import com.satheesh.portfolio.constants.MessageConstants;
+import com.satheesh.common.constants.AppConstants;
+import com.satheesh.common.constants.MessageConstants;
 import com.satheesh.portfolio.kafka.event.ContactSubmittedEvent;
-import com.satheesh.portfolio.util.AppLogger;
+import com.satheesh.common.util.AppLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,16 +34,16 @@ public class ContactEventProducer {
     public void sendContactEvent(ContactSubmittedEvent event) {
         String key = String.valueOf(event.messageId());
         
-        AppLogger.info(log, CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
+        AppLogger.info(log, "Portfolio-Service", CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
                 "Publishing contact event for messageId: " + event.messageId() + " to topic: " + AppConstants.KAFKA_CONTACT_TOPIC);
 
         kafkaTemplate.send(AppConstants.KAFKA_CONTACT_TOPIC, key, event)
                 .whenComplete((result, ex) -> {
                     if (ex == null) {
-                        AppLogger.info(log, CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
+                        AppLogger.info(log, "Portfolio-Service", CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
                                 "Successfully published event to Kafka offset: " + result.getRecordMetadata().offset());
                     } else {
-                        AppLogger.error(log, CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
+                        AppLogger.error(log, "Portfolio-Service", CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
                                 "Failed to publish contact event to Kafka for messageId: " + event.messageId(), ex);
                     }
                 });

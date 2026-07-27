@@ -1,6 +1,6 @@
 package com.satheesh.portfolio.controller;
 
-import com.satheesh.portfolio.constants.AppConstants;
+import com.satheesh.common.constants.AppConstants;
 import com.satheesh.portfolio.dto.ContactRequestDTO;
 import com.satheesh.portfolio.dto.ContactResponseDTO;
 import com.satheesh.portfolio.service.ContactService;

@@ -1,12 +1,11 @@
-package com.satheesh.portfolio.constants;
+package com.satheesh.common.constants;
 
 /**
  * @author Satheesh Kumar P
  * @since 2026-07-27
  * @version 1.0.0
  * 
- * @description Centralized repository for user-facing responses, error messages, and log messages.
- * Prevents text duplication and ensures uniform messaging across APIs and exceptions.
+ * @description Shared repository for user-facing text, error messages, and log tags across microservices.
  */
 public final class MessageConstants {
 
@@ -33,5 +32,7 @@ public final class MessageConstants {
     public static final String LOG_ACTION_TRACK_RESUME = "TRACK_RESUME_DOWNLOAD";
     public static final String LOG_ACTION_PROCESS_CHAT = "PROCESS_CHAT_MESSAGE";
     public static final String LOG_ACTION_KAFKA_PUBLISH = "KAFKA_EVENT_PUBLISH";
+    public static final String LOG_ACTION_KAFKA_CONSUME = "KAFKA_EVENT_CONSUME";
+    public static final String LOG_ACTION_SEND_EMAIL = "SEND_EMAIL_NOTIFICATION";
     public static final String LOG_ACTION_RATE_LIMIT = "RATE_LIMIT_CHECK";
 }

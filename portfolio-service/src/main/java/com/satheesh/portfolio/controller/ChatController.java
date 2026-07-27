@@ -1,6 +1,6 @@
 package com.satheesh.portfolio.controller;
 
-import com.satheesh.portfolio.constants.AppConstants;
+import com.satheesh.common.constants.AppConstants;
 import com.satheesh.portfolio.dto.ChatMessageDTO;
 import com.satheesh.portfolio.service.ChatService;
 import io.swagger.v3.oas.annotations.Operation;
