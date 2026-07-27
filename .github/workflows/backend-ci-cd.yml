@@ -24,20 +24,8 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Build & Install Common Library
-        run: |
-          cd common-library
-          mvn clean install -DskipTests
-
-      - name: Compile Portfolio Service
-        run: |
-          cd portfolio-service
-          mvn clean compile -DskipTests
-
-      - name: Compile Notification Service
-        run: |
-          cd notification-service
-          mvn clean compile -DskipTests
+      - name: Build Monorepo (Common Library + Microservices)
+        run: mvn clean compile -DskipTests
 
       - name: Verify Docker Image Build - Portfolio Service
         run: |
