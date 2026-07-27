@@ -27,6 +27,14 @@ jobs:
       - name: Build Monorepo (Common Library + Microservices)
         run: mvn clean package -DskipTests
 
+      - name: SonarCloud Code Analysis & Quality Gate
+        if: env.SONAR_TOKEN != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn sonar:sonar -Dsonar.projectKey=satheesh1501_portfolio -Dsonar.organization=satheesh1501 -Dsonar.host.url=https://sonarcloud.io
+
       - name: Verify Docker Image Build - Portfolio Service
         run: |
           docker build -t portfolio-service:latest -f portfolio-service/Dockerfile .
