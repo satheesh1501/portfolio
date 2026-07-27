@@ -3,20 +3,12 @@ name: Backend Microservices CI/CD Pipeline
 on:
   push:
     branches: [ main, develop ]
-    paths:
-      - 'common-library/**'
-      - 'portfolio-service/**'
-      - 'notification-service/**'
   pull_request:
-    branches: [ main ]
-    paths:
-      - 'common-library/**'
-      - 'portfolio-service/**'
-      - 'notification-service/**'
+    branches: [ main, develop ]
 
 jobs:
-  build-test-and-package:
-    name: Build & Verify Microservices
+  backend-build-and-test:
+    name: Backend Build & Verify Microservices
     runs-on: ubuntu-latest
 
     steps:

@@ -3,16 +3,12 @@ name: Frontend CI/CD Pipeline
 on:
   push:
     branches: [ main, develop ]
-    paths:
-      - 'frontend/**'
   pull_request:
-    branches: [ main ]
-    paths:
-      - 'frontend/**'
+    branches: [ main, develop ]
 
 jobs:
   build-and-test:
-    name: Build, Test & Package Frontend
+    name: build-and-test
     runs-on: ubuntu-latest
     defaults:
       run:
