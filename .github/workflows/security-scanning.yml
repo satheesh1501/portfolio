@@ -1,0 +1,39 @@
+name: DevSecOps Code & Secret Security Scanning
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 0 * * 0' # Run weekly on Sundays
+
+jobs:
+  security-scan:
+    name: CodeQL & Gitleaks Security Audit
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Initialize CodeQL Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: 'java, javascript'
+
+      - name: Perform CodeQL Static Code Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:java-javascript"
+
+      - name: Security Scan - Gitleaks Secret Detection
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
