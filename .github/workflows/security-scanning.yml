@@ -5,12 +5,10 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
-  schedule:
-    - cron: '0 0 * * 0' # Run weekly on Sundays
 
 jobs:
-  security-scan:
-    name: CodeQL & Gitleaks Security Audit
+  codeql-java:
+    name: CodeQL Security Scan (Java)
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -20,20 +18,52 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Setup Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Initialize CodeQL (Java)
+        uses: github/codeql-action/init@v3
+        with:
+          languages: 'java-kotlin'
+          build-mode: 'autobuild'
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  codeql-js:
+    name: CodeQL Security Scan (JavaScript)
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL (JavaScript)
+        uses: github/codeql-action/init@v3
+        with:
+          languages: 'javascript-typescript'
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  gitleaks-scan:
+    name: Gitleaks Secret Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Initialize CodeQL Analysis
-        uses: github/codeql-action/init@v3
-        with:
-          languages: 'java, javascript'
-
-      - name: Perform CodeQL Static Code Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:java-javascript"
-
-      - name: Security Scan - Gitleaks Secret Detection
+      - name: Run Gitleaks Secret Scan
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
