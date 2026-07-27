@@ -25,12 +25,12 @@ jobs:
           cache: 'maven'
 
       - name: Build Monorepo (Common Library + Microservices)
-        run: mvn clean compile -DskipTests
+        run: mvn clean package -DskipTests
 
       - name: Verify Docker Image Build - Portfolio Service
         run: |
-          docker build -t portfolio-service:latest ./portfolio-service
+          docker build -t portfolio-service:latest -f portfolio-service/Dockerfile .
 
       - name: Verify Docker Image Build - Notification Service
         run: |
-          docker build -t notification-service:latest ./notification-service
+          docker build -t notification-service:latest -f notification-service/Dockerfile .
