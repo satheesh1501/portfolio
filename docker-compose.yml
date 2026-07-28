@@ -6,7 +6,7 @@ services:
     image: postgres:16-alpine
     container_name: portfolio-postgres
     ports:
-      - '5432:5432'
+      - '5433:5432'    # Host 5433 → avoids conflict with civsaash_postgres on 5432
     environment:
       POSTGRES_DB: portfolio_db
       POSTGRES_USER: postgres
@@ -24,7 +24,7 @@ services:
     image: redis:7-alpine
     container_name: portfolio-redis
     ports:
-      - '6379:6379'
+      - '6380:6379'    # Host 6380 → avoids conflict with civsaash_redis on 6379
     volumes:
       - redis_data:/data
     healthcheck:
@@ -64,6 +64,20 @@ services:
       timeout: 5s
       retries: 5
 
+  # Mailpit - Local Email Catching Mock Server & Web Dashboard
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: portfolio-mailpit
+    ports:
+      - '1025:1025'   # Local SMTP server port
+      - '8025:8025'   # Web UI dashboard (http://localhost:8025)
+    environment:
+      MP_MAX_MESSAGES: 500
+      MP_DATABASE: /data/mailpit.db
+    volumes:
+      - mailpit_data:/data
+
 volumes:
   postgres_data:
   redis_data:
+  mailpit_data:
