@@ -73,3 +73,77 @@ This repository showcases an **enterprise-grade, event-driven microservices plat
 - **Messaging**: Apache Kafka 7.5 + Zookeeper.
 - **Testing**: Vitest (Unit & State Tests), Cypress (Browser E2E Tests), JUnit 5, Mockito.
 - **DevOps & Cloud**: Docker, Docker Compose, GitHub Actions CI/CD, AWS S3, AWS CloudFront, AWS App Runner.
+
+---
+
+## 🚀 Local Quickstart Guide
+
+### Prerequisites
+- Java 21 JDK installed
+- Node.js 20+ & npm installed
+- Docker & Docker Compose running
+
+### 1. Clone Repository & Start Infrastructure
+```bash
+git clone https://github.com/satheesh1501/portfolio.git
+cd portfolio
+
+# Start PostgreSQL, Redis, and Apache Kafka containers
+docker-compose up -d
+```
+
+### 2. Start Portfolio Backend Service
+```bash
+cd portfolio-service
+mvn clean spring-boot:run
+```
+*(Runs on `http://localhost:8080` — Swagger UI: `http://localhost:8080/swagger-ui.html`)*
+
+### 3. Start Notification Microservice
+```bash
+cd notification-service
+mvn clean spring-boot:run
+```
+*(Runs on `http://localhost:8081` listening to Kafka events)*
+
+### 4. Start React 18 Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*(Open `http://localhost:5173` in your browser)*
+
+---
+
+## ⚙️ How to Verify GitHub Actions CI/CD Pipelines
+
+To verify that the automated **Frontend** and **Backend** GitHub Actions CI/CD workflows run cleanly:
+
+1. **Commit and Push Changes to GitHub**:
+   ```bash
+   git add .
+   git commit -m "docs: update enterprise README with clean architecture diagram"
+   git push origin develop
+   ```
+
+2. **Open GitHub Actions Tab**:
+   - Navigate to your repository URL: [github.com/satheesh1501/portfolio](https://github.com/satheesh1501/portfolio)
+   - Click on the **Actions** tab at the top.
+
+3. **Observe Automated Workflow Executions**:
+   - You will see two active pipelines running:
+     - 🟢 **Frontend CI/CD Pipeline**: Installs Node 20 dependencies, executes **Vitest** unit/state tests, builds Vite bundle, and packages `dist/` artifact.
+     - 🟢 **Backend Microservices CI/CD Pipeline**: Installs Java 21, builds `common-library`, compiles `portfolio-service` & `notification-service`, and verifies Docker container image builds.
+
+---
+
+## 📄 Contact & Professional Links
+
+- **Author**: Satheesh Kumar P
+- **Role**: Full Stack Software Engineer (2.5+ Years Exp)
+- **Email**: psatheeshkumar89@gmail.com
+- **Degree**: B.Tech IT | Mepco Schlenk Engineering College (CGPA: 7.56 / 10)
+- **LeetCode**: [leetcode.com/u/satheeshkumar1501](https://leetcode.com/u/satheeshkumar1501/) (138+ DSA Solved)
+- **GitHub**: [github.com/satheesh1501](https://github.com/satheesh1501)
+- **LinkedIn**: [linkedin.com/in/satheeshkumar89](https://linkedin.com/in/satheeshkumar89)
