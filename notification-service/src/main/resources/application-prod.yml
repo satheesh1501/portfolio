@@ -1,0 +1,40 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: notification-group-prod
+      auto-offset-reset: earliest
+    properties:
+      security.protocol: ${SPRING_KAFKA_SECURITY_PROTOCOL:SASL_SSL}
+      sasl.mechanism: ${SPRING_KAFKA_SASL_MECHANISM:SCRAM-SHA-256}
+      sasl.jaas.config: ${SPRING_KAFKA_SASL_JAAS_CONFIG:}
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${SPRING_MAIL_USERNAME:psatheeshkumar89@gmail.com}
+    password: ${SPRING_MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: ${PORT:8081}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+logging:
+  level:
+    root: INFO
+    com.satheesh.notification: INFO
