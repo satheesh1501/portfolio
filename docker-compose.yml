@@ -64,6 +64,20 @@ services:
       timeout: 5s
       retries: 5
 
+  # Mailpit - Local Email Catching Mock Server & Web Dashboard
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: portfolio-mailpit
+    ports:
+      - '1025:1025'   # Local SMTP server port
+      - '8025:8025'   # Web UI dashboard (http://localhost:8025)
+    environment:
+      MP_MAX_MESSAGES: 500
+      MP_DATABASE: /data/mailpit.db
+    volumes:
+      - mailpit_data:/data
+
 volumes:
   postgres_data:
   redis_data:
+  mailpit_data:

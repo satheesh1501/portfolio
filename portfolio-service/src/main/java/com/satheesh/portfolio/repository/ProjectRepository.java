@@ -8,29 +8,30 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Spring Data JPA repository for Project entities.
- *
- * Key queries:
- *  - findByFeaturedTrueAndStatusInOrderByDisplayOrderAsc:
- *      Used on the homepage to load featured ACTIVE + IN_PROGRESS projects,
- *      ordered by displayOrder ascending (lower number = shown first).
- *
- *  - findByStatusOrderByDisplayOrderAsc:
- *      Used for admin/filtered views of projects by status.
+ * @author Satheesh Kumar P
+ * @since 2026-07-27
+ * @version 1.0.0
+ * 
+ * @description Spring Data JPA Repository interface for Project entity persistence operations.
+ * Manages queries for active/featured software engineering project showcases with display ordering.
  */
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     /**
-     * Returns featured projects with any of the given statuses, sorted by displayOrder.
-     * Usage: findByFeaturedTrueAndStatusInOrderByDisplayOrderAsc(
-     *            List.of(ProjectStatus.ACTIVE, ProjectStatus.IN_PROGRESS)
-     *        )
+     * Retrieves featured projects with statuses in the specified list, ordered by displayOrder ascending.
+     * Used on homepage showcases to load ACTIVE and IN_PROGRESS projects in custom sequence.
+     *
+     * @param statuses List of acceptable ProjectStatus values
+     * @return List of matching Project entities
      */
     List<Project> findByFeaturedTrueAndStatusInOrderByDisplayOrderAsc(List<ProjectStatus> statuses);
 
     /**
-     * Returns all projects matching a given status, sorted by displayOrder.
+     * Retrieves all projects matching a specific status, ordered by displayOrder ascending.
+     *
+     * @param status Target ProjectStatus filter constraint
+     * @return List of matching Project entities
      */
     List<Project> findByStatusOrderByDisplayOrderAsc(ProjectStatus status);
 }

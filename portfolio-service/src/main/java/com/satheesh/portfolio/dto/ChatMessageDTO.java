@@ -1,15 +1,19 @@
 package com.satheesh.portfolio.dto;
 
-import com.satheesh.portfolio.validation.NoHtml;
+import com.satheesh.common.validation.NoHtml;
 import jakarta.validation.constraints.*;
 
 /**
- * Immutable request DTO for incoming AI chatbot messages.
+ * @author Satheesh Kumar P
+ * @since 2026-07-27
+ * @version 1.0.0
+ * 
+ * @description Immutable record DTO representing incoming AI chatbot prompts.
+ * Includes Bean Validation for character length (1-500) and custom @NoHtml security annotation
+ * to prevent prompt injection and XSS payload attacks.
  *
- * sessionId is optional — when provided it allows the Spring AI
- * conversation memory to maintain chat history for a browser session.
- *
- * @NoHtml guards against prompt injection via HTML/JS payloads.
+ * @param message The input chat query string from the user
+ * @param sessionId Optional session identifier for maintaining multi-turn conversational context
  */
 public record ChatMessageDTO(
 

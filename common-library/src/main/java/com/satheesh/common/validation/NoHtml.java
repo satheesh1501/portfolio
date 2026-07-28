@@ -1,18 +1,15 @@
-package com.satheesh.portfolio.validation;
+package com.satheesh.common.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * Custom validation constraint to block HTML tags and JavaScript injection
- * in user-submitted input fields.
- *
- * Protects against:
- *  - XSS: <script>alert('xss')</script>
- *  - HTML injection: <img onerror="...">
- *  - JS protocol: javascript:void(0)
- *  - Inline event handlers: onclick="...", onerror="..."
+ * @author Satheesh Kumar P
+ * @since 2026-07-27
+ * @version 1.0.0
+ * 
+ * @description Shared custom validation constraint to block HTML tags and JavaScript injection (XSS).
  */
 @Documented
 @Constraint(validatedBy = NoHtmlValidator.class)

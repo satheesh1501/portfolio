@@ -1,0 +1,387 @@
+{
+  "stats": {
+    "suites": 4,
+    "tests": 12,
+    "passes": 9,
+    "pending": 0,
+    "failures": 3,
+    "start": "2026-07-27T17:28:46.559Z",
+    "end": "2026-07-27T17:29:32.699Z",
+    "duration": 46140,
+    "testsRegistered": 12,
+    "passPercent": 75,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "34686b97-be5b-4012-a6a3-7b380c3cc0ee",
+      "title": "",
+      "fullFile": "cypress\\e2e\\portfolio_e2e.cy.js",
+      "file": "cypress\\e2e\\portfolio_e2e.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "5c4ad0cb-f434-4eac-b516-2c39d6608e41",
+          "title": "Portfolio Full-Stack Master E2E Automated Test Suite",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "a5f09864-0e56-45fa-baea-742f769c9b7d",
+              "title": "Hero Section & Social Navigation",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "TC-HERO-01 [Positive]: Should display correct header quote and developer name",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite Hero Section & Social Navigation TC-HERO-01 [Positive]: Should display correct header quote and developer name",
+                  "timedOut": null,
+                  "duration": 3454,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('.name').should('contain.text', 'Satheesh Kumar P');\ncy.get('.nav-quote').should('contain.text', 'Full stack developer by profession, product builder by passion');",
+                  "err": {},
+                  "uuid": "65d21693-31ae-4deb-9516-46d55379cdeb",
+                  "parentUUID": "a5f09864-0e56-45fa-baea-742f769c9b7d",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC-HERO-02 [Positive]: Should verify LeetCode, GitHub, and LinkedIn social profile links",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite Hero Section & Social Navigation TC-HERO-02 [Positive]: Should verify LeetCode, GitHub, and LinkedIn social profile links",
+                  "timedOut": null,
+                  "duration": 675,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('a[aria-label=\"LeetCode\"]').should('have.attr', 'href', 'https://leetcode.com/u/satheeshkumar1501/').should('have.attr', 'target', '_blank');\ncy.get('a[aria-label=\"GitHub\"]').should('have.attr', 'href', 'https://github.com/satheesh1501').should('have.attr', 'target', '_blank');\ncy.get('a[aria-label=\"LinkedIn\"]').should('have.attr', 'href', 'https://www.linkedin.com/in/satheesh-kumar-p-24ab5427b/').should('have.attr', 'target', '_blank');",
+                  "err": {},
+                  "uuid": "91728f96-69e1-45f3-b417-a5fbf40b4e80",
+                  "parentUUID": "a5f09864-0e56-45fa-baea-742f769c9b7d",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC-HERO-03 [Positive]: Should trigger Resume Download API and alert user",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite Hero Section & Social Navigation TC-HERO-03 [Positive]: Should trigger Resume Download API and alert user",
+                  "timedOut": null,
+                  "duration": 898,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.contains('button', 'Download Resume ⬇').click();\ncy.get('.toast-container', {\n  timeout: 10000\n}).should('be.visible').and('contain.text', 'Resume download started!');",
+                  "err": {},
+                  "uuid": "b6dba024-70e7-4a5e-9ee2-1a229c823ac5",
+                  "parentUUID": "a5f09864-0e56-45fa-baea-742f769c9b7d",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "65d21693-31ae-4deb-9516-46d55379cdeb",
+                "91728f96-69e1-45f3-b417-a5fbf40b4e80",
+                "b6dba024-70e7-4a5e-9ee2-1a229c823ac5"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 5027,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "5cb8ef13-1beb-463f-9903-9d39a5a48ac6",
+              "title": "Contact Form Pipeline & Validation",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "TC-CONTACT-01 [Negative]: Should show in-line error messages when submitting empty form",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite Contact Form Pipeline & Validation TC-CONTACT-01 [Negative]: Should show in-line error messages when submitting empty form",
+                  "timedOut": null,
+                  "duration": 738,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('#contact').scrollIntoView();\ncy.contains('button', 'Send Message →').click();\ncy.get('.error-text').should('have.length.at.least', 3);\ncy.contains('Name is required.').should('be.visible');\ncy.contains('Email is required.').should('be.visible');\ncy.contains('Subject is required.').should('be.visible');",
+                  "err": {},
+                  "uuid": "aa713008-9da5-4336-8c7c-46ab8b306679",
+                  "parentUUID": "5cb8ef13-1beb-463f-9903-9d39a5a48ac6",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC-CONTACT-02 [Negative]: Should reject invalid email format (missing @)",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite Contact Form Pipeline & Validation TC-CONTACT-02 [Negative]: Should reject invalid email format (missing @)",
+                  "timedOut": null,
+                  "duration": 3412,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('#contact').scrollIntoView();\ncy.get('input[placeholder=\"Your Name\"]').type('John Doe');\ncy.get('input[placeholder=\"Your Email\"]').type('invalid-email-format');\ncy.get('input[placeholder=\"Subject\"]').type('Hiring Inquiry');\ncy.get('textarea[placeholder*=\"Your Message\"]').type('Hello Satheesh, we would like to discuss an engineering role.');\ncy.contains('button', 'Send Message →').click();\ncy.contains('Please enter a valid email address').should('be.visible');",
+                  "err": {},
+                  "uuid": "f664c8d1-c6d1-48bd-9f86-15b2661d6b82",
+                  "parentUUID": "5cb8ef13-1beb-463f-9903-9d39a5a48ac6",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC-CONTACT-03 [Negative]: Should reject invalid special characters in subject",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite Contact Form Pipeline & Validation TC-CONTACT-03 [Negative]: Should reject invalid special characters in subject",
+                  "timedOut": null,
+                  "duration": 2582,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('#contact').scrollIntoView();\ncy.get('input[placeholder=\"Your Name\"]').type('Test User');\ncy.get('input[placeholder=\"Your Email\"]').type('test@example.com');\ncy.get('input[placeholder=\"Subject\"]').type('<script>alert(\"xss\")</script>');\ncy.get('textarea[placeholder*=\"Your Message\"]').type('Testing malicious payload injection prevention.');\ncy.contains('button', 'Send Message →').click();\ncy.contains('Subject contains invalid special characters').should('be.visible');",
+                  "err": {},
+                  "uuid": "88200324-fac7-4efe-84fb-940d528ce891",
+                  "parentUUID": "5cb8ef13-1beb-463f-9903-9d39a5a48ac6",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC-CONTACT-04 [Positive]: Submit valid contact message",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite Contact Form Pipeline & Validation TC-CONTACT-04 [Positive]: Submit valid contact message",
+                  "timedOut": null,
+                  "duration": 19574,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const uniqueId = Math.floor(100000 + Math.random() * 900000);\ncy.get('#contact').scrollIntoView();\ncy.get('input[placeholder=\"Your Name\"]').type(`Recruiter ${uniqueId}`);\ncy.get('input[placeholder=\"Your Email\"]').type(`recruiter_${uniqueId}@company.com`);\ncy.get('input[placeholder=\"Subject\"]').type('Senior Full Stack Developer Opportunity');\ncy.get('textarea[placeholder*=\"Your Message\"]').type('Hi Satheesh, we were impressed by your Java 21 microservices portfolio and would love to connect!');\ncy.contains('button', 'Send Message →').click();\ncy.get('.toast-container', {\n  timeout: 15000\n}).should('be.visible');",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `.toast-container`, but never found it.",
+                    "estack": "AssertionError: Timed out retrying after 15000ms: Expected to find element: `.toast-container`, but never found it.\n    at Context.eval (webpack://portfolio-frontend/./cypress/e2e/portfolio_e2e.cy.js:82:53)",
+                    "diff": null
+                  },
+                  "uuid": "d95d84e0-7975-495d-a3aa-6986c5dc4884",
+                  "parentUUID": "5cb8ef13-1beb-463f-9903-9d39a5a48ac6",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "aa713008-9da5-4336-8c7c-46ab8b306679",
+                "f664c8d1-c6d1-48bd-9f86-15b2661d6b82",
+                "88200324-fac7-4efe-84fb-940d528ce891"
+              ],
+              "failures": [
+                "d95d84e0-7975-495d-a3aa-6986c5dc4884"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 26306,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "db0cb60b-a5e6-414f-a3b6-ea67519ea42b",
+              "title": "AI Chatbot Engine & Boundary Tests",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "TC-AI-01 [Positive]: Should open drawer with single welcome message and starter chips",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite AI Chatbot Engine & Boundary Tests TC-AI-01 [Positive]: Should open drawer with single welcome message and starter chips",
+                  "timedOut": null,
+                  "duration": 764,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('.chat-widget-button').click();\ncy.get('#chatPanel').should('be.visible');\ncy.get('.ai-bubble').should('have.length', 1).and('contain.text', \"Hi! I'm Satheesh's AI Portfolio Assistant\");\ncy.get('.suggested-chip').should('have.length', 4);",
+                  "err": {},
+                  "uuid": "9c18acb5-8032-4071-b4de-8a9a4cbe134f",
+                  "parentUUID": "db0cb60b-a5e6-414f-a3b6-ea67519ea42b",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC-AI-02 [Positive]: Should handle LeetCode starter chip click",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite AI Chatbot Engine & Boundary Tests TC-AI-02 [Positive]: Should handle LeetCode starter chip click",
+                  "timedOut": null,
+                  "duration": 926,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('.chat-widget-button').click();\ncy.contains('.suggested-chip', 'LeetCode Milestones').click();\ncy.get('.user-bubble').should('contain.text', 'LeetCode Milestones');\ncy.get('.ai-bubble').last().should('contain.text', '138+ Data Structures & Algorithms problems');",
+                  "err": {},
+                  "uuid": "89ff5709-f751-49d2-a9c4-5a4feb5177e6",
+                  "parentUUID": "db0cb60b-a5e6-414f-a3b6-ea67519ea42b",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC-AI-03 [Positive]: Should resolve NLP query \"his skills\"",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite AI Chatbot Engine & Boundary Tests TC-AI-03 [Positive]: Should resolve NLP query \"his skills\"",
+                  "timedOut": null,
+                  "duration": 929,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('.chat-widget-button').click();\ncy.get('input[placeholder*=\"Ask anything\"]').type('his skills{enter}');\ncy.get('.user-bubble').should('contain.text', 'his skills');\ncy.get('.ai-bubble').last().should('contain.text', 'Java 21, Spring Boot 3, Spring Security');",
+                  "err": {},
+                  "uuid": "23b72a30-ea37-47b1-9241-e372cbf7f485",
+                  "parentUUID": "db0cb60b-a5e6-414f-a3b6-ea67519ea42b",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC-AI-04 [Positive]: Should resolve NLP query \"what company he looking for\"",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite AI Chatbot Engine & Boundary Tests TC-AI-04 [Positive]: Should resolve NLP query \"what company he looking for\"",
+                  "timedOut": null,
+                  "duration": 5675,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('.chat-widget-button').click();\ncy.get('input[placeholder*=\"Ask anything\"]').type('what company he looking for{enter}');\ncy.get('.user-bubble').should('contain.text', 'what company he looking for');\ncy.get('.ai-bubble').last().should('contain.text', 'Senior / Mid-Level Full Stack Developer');",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 4000ms: expected '<div.ai-bubble>' to contain text 'Senior / Mid-Level Full Stack Developer', but the text was 'Too many requests. Please try again after some time.'",
+                    "estack": "AssertionError: Timed out retrying after 4000ms: expected '<div.ai-bubble>' to contain text 'Senior / Mid-Level Full Stack Developer', but the text was 'Too many requests. Please try again after some time.'\n    at Context.eval (webpack://portfolio-frontend/./cypress/e2e/portfolio_e2e.cy.js:121:34)",
+                    "diff": "- 'Too many requests. Please try again after some time.'\n+ 'Senior / Mid-Level Full Stack Developer'\n"
+                  },
+                  "uuid": "d3ae5426-c435-4c48-9e3f-76727e73278c",
+                  "parentUUID": "db0cb60b-a5e6-414f-a3b6-ea67519ea42b",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "TC-AI-05 [Negative]: Should strictly reject off-topic query \"what is the weather in London\"",
+                  "fullTitle": "Portfolio Full-Stack Master E2E Automated Test Suite AI Chatbot Engine & Boundary Tests TC-AI-05 [Negative]: Should strictly reject off-topic query \"what is the weather in London\"",
+                  "timedOut": null,
+                  "duration": 5673,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('.chat-widget-button').click();\ncy.get('input[placeholder*=\"Ask anything\"]').type('what is the weather in London{enter}');\ncy.get('.user-bubble').should('contain.text', 'what is the weather in London');\ncy.get('.ai-bubble').last().should('contain.text', 'Please ask a valid question about Satheesh Kumar P!');",
+                  "err": {
+                    "message": "AssertionError: Timed out retrying after 4000ms: expected '<div.ai-bubble>' to contain text 'Please ask a valid question about Satheesh Kumar P!', but the text was 'Too many requests. Please try again after some time.'",
+                    "estack": "AssertionError: Timed out retrying after 4000ms: expected '<div.ai-bubble>' to contain text 'Please ask a valid question about Satheesh Kumar P!', but the text was 'Too many requests. Please try again after some time.'\n    at Context.eval (webpack://portfolio-frontend/./cypress/e2e/portfolio_e2e.cy.js:129:34)",
+                    "diff": "- 'Too many requests. Please try again after some time.'\n+ 'Please ask a valid question about Satheesh Kumar P!'\n"
+                  },
+                  "uuid": "45d9ab45-a437-47b4-8b89-d3a997f07a70",
+                  "parentUUID": "db0cb60b-a5e6-414f-a3b6-ea67519ea42b",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "9c18acb5-8032-4071-b4de-8a9a4cbe134f",
+                "89ff5709-f751-49d2-a9c4-5a4feb5177e6",
+                "23b72a30-ea37-47b1-9241-e372cbf7f485"
+              ],
+              "failures": [
+                "d3ae5426-c435-4c48-9e3f-76727e73278c",
+                "45d9ab45-a437-47b4-8b89-d3a997f07a70"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 13967,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
