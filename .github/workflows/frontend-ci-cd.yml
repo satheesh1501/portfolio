@@ -39,7 +39,7 @@ jobs:
       - name: Run Vitest Unit Tests
         run: |
           cd frontend
-          npm run test -- --run || echo "Vitest unit tests completed"
+          npm test
 
       - name: Build Production Web Bundle
         run: |
