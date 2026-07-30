@@ -43,7 +43,6 @@ spring:
       sasl.jaas.config: ${SPRING_KAFKA_SASL_JAAS_CONFIG:org.apache.kafka.common.security.scram.ScramLoginModule required username="${SPRING_KAFKA_USERNAME:avnadmin}" password="${SPRING_KAFKA_PASSWORD:}";}
       ssl.endpoint.identification.algorithm: ""
 
-
   mail:
     host: ${SPRING_MAIL_HOST:smtp.gmail.com}
     port: ${SPRING_MAIL_PORT:587}
@@ -87,4 +86,3 @@ resilience4j:
         waitDurationInOpenState: 10000ms
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
-
