@@ -37,15 +37,20 @@ public class ContactEventProducer {
         AppLogger.info(log, "Portfolio-Service", CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
                 "Publishing contact event for messageId: " + event.messageId() + " to topic: " + AppConstants.KAFKA_CONTACT_TOPIC);
 
-        kafkaTemplate.send(AppConstants.KAFKA_CONTACT_TOPIC, key, event)
-                .whenComplete((result, ex) -> {
-                    if (ex == null) {
-                        AppLogger.info(log, "Portfolio-Service", CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
-                                "Successfully published event to Kafka offset: " + result.getRecordMetadata().offset());
-                    } else {
-                        AppLogger.error(log, "Portfolio-Service", CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
-                                "Failed to publish contact event to Kafka for messageId: " + event.messageId(), ex);
-                    }
-                });
+        try {
+            kafkaTemplate.send(AppConstants.KAFKA_CONTACT_TOPIC, key, event)
+                    .whenComplete((result, ex) -> {
+                        if (ex == null) {
+                            AppLogger.info(log, "Portfolio-Service", CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
+                                    "Successfully published event to Kafka offset: " + result.getRecordMetadata().offset());
+                        } else {
+                            AppLogger.error(log, "Portfolio-Service", CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
+                                    "Failed to publish contact event to Kafka for messageId: " + event.messageId(), ex);
+                        }
+                    });
+        } catch (Exception e) {
+            AppLogger.error(log, "Portfolio-Service", CLASS_NAME, "sendContactEvent", event.ipAddress(), MessageConstants.LOG_ACTION_KAFKA_PUBLISH,
+                    "Kafka send exception caught; failing open to ensure contact form succeeds", e);
+        }
     }
 }

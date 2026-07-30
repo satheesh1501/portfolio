@@ -43,6 +43,7 @@ public class ContactServiceImpl implements ContactService {
     private final ContactMapper mapper;
     private final RateLimiterService rateLimiterService;
     private final ContactEventProducer eventProducer;
+    private final com.satheesh.portfolio.service.EmailService emailService;
 
     @Override
     @Transactional
@@ -79,7 +80,7 @@ public class ContactServiceImpl implements ContactService {
         AppLogger.info(log, "Portfolio-Service", CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_SUBMIT_CONTACT,
                 "Saved contact message to PostgreSQL with ID: " + savedEntity.getId());
 
-        // Step 4: Publish Event to Apache Kafka
+        // Step 4: Publish Event to Apache Kafka (fail-safe block)
         ContactSubmittedEvent event = new ContactSubmittedEvent(
                 savedEntity.getId(),
                 savedEntity.getName(),
@@ -89,11 +90,27 @@ public class ContactServiceImpl implements ContactService {
                 ipAddress,
                 savedEntity.getCreatedAt()
         );
-        eventProducer.sendContactEvent(event);
 
-        // Update status to NOTIFIED after publishing event
-        savedEntity.setStatus(ContactStatus.NOTIFIED);
-        repository.save(savedEntity);
+        try {
+            eventProducer.sendContactEvent(event);
+            savedEntity.setStatus(ContactStatus.NOTIFIED);
+            repository.save(savedEntity);
+        } catch (Exception e) {
+            AppLogger.error(log, "Portfolio-Service", CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_SUBMIT_CONTACT,
+                    "Kafka notification exception caught; contact message safely persisted in database", e);
+        }
+
+        // Step 4.5: Direct Async Gmail Dispatch (guarantees delivery without external IP or Kafka dependencies)
+        java.util.concurrent.CompletableFuture.runAsync(() -> {
+            try {
+                emailService.sendContactNotificationEmail(event);
+                AppLogger.info(log, "Portfolio-Service", CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_SUBMIT_CONTACT,
+                        "Direct Gmail notification successfully sent to: " + AppConstants.NOTIFICATION_EMAIL_TO);
+            } catch (Exception e) {
+                AppLogger.warn(log, "Portfolio-Service", CLASS_NAME, methodName, ipAddress, MessageConstants.LOG_ACTION_SUBMIT_CONTACT,
+                        "Direct Gmail notification notice: " + e.getMessage());
+            }
+        });
 
         // Step 5: Return Response DTO
         return mapper.toResponseDTO(savedEntity);
