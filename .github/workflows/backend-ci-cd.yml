@@ -19,6 +19,7 @@ on:
       - 'notification-service/**'
       - 'common-library/**'
       - 'pom.xml'
+      - '.github/workflows/backend-ci-cd.yml'
   workflow_dispatch:
 
 jobs:
