@@ -14,7 +14,6 @@ spring:
       sasl.jaas.config: ${SPRING_KAFKA_SASL_JAAS_CONFIG:org.apache.kafka.common.security.scram.ScramLoginModule required username="${SPRING_KAFKA_USERNAME:avnadmin}" password="${SPRING_KAFKA_PASSWORD:}";}
       ssl.endpoint.identification.algorithm: ""
 
-
   mail:
     host: smtp.gmail.com
     port: 587
