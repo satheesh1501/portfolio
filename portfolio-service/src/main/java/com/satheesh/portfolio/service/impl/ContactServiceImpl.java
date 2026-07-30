@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,6 +48,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     @Transactional
+    @CircuitBreaker(name = "backendService", fallbackMethod = "processContactFallback")
     public ContactResponseDTO processContactSubmission(ContactRequestDTO requestDTO, String ipAddress) {
         String methodName = "processContactSubmission";
 
@@ -118,5 +120,15 @@ public class ContactServiceImpl implements ContactService {
 
     private boolean isLocalhost(String ip) {
         return ip == null || "127.0.0.1".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip) || ip.startsWith("127.") || ip.startsWith("localhost");
+    }
+
+    public ContactResponseDTO processContactFallback(ContactRequestDTO requestDTO, String ipAddress, Throwable t) {
+        AppLogger.error(log, "Portfolio-Service", CLASS_NAME, "processContactFallback", ipAddress, MessageConstants.LOG_ACTION_SUBMIT_CONTACT,
+                "CircuitBreaker triggered: Backend fallback executed due to exception", t);
+        return new ContactResponseDTO(
+                -1L,
+                "Your request has been queued due to high service load. We will process it shortly!",
+                LocalDateTime.now()
+        );
     }
 }
