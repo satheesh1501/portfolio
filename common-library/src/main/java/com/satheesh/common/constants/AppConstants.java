@@ -41,7 +41,7 @@ public final class AppConstants {
     public static final String UNKNOWN_IP = "UNKNOWN_IP";
 
     // Email Settings
-    public static final String NOTIFICATION_EMAIL_TO = "psatheesh1501@gmail.com";
+    public static final String NOTIFICATION_EMAIL_TO = "psatheeshkumar1501@gmail.com";
 
     // Cache Names
     public static final String CACHE_PROJECTS = "projects";
