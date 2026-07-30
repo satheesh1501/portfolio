@@ -19,6 +19,7 @@ on:
       - 'notification-service/**'
       - 'common-library/**'
       - 'pom.xml'
+      - '.github/workflows/backend-ci-cd.yml'
   workflow_dispatch:
 
 jobs:
@@ -69,8 +70,8 @@ jobs:
 
   deploy-portfolio:
     name: Build & Deploy Portfolio Service
-    needs: changes
-    if: ${{ (needs.changes.outputs.portfolio == 'true' || github.event_name == 'workflow_dispatch') && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: [build-and-test, changes]
+    if: (github.event_name == 'push' && needs.changes.outputs.portfolio == 'true') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -109,8 +110,8 @@ jobs:
 
   deploy-notification:
     name: Build & Deploy Notification Service
-    needs: changes
-    if: ${{ (needs.changes.outputs.notification == 'true' || github.event_name == 'workflow_dispatch') && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: [build-and-test, changes]
+    if: (github.event_name == 'push' && needs.changes.outputs.notification == 'true') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:

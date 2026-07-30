@@ -71,7 +71,7 @@ An enterprise-grade, event-driven microservices platform built by **Satheesh Kum
 
 ### 1. `frontend` (React 18 + Vite SPA)
 - **Port**: `5173` (Local) / S3 + CloudFront (Production)
-- **Responsibilities**: Interactive dark-mode portfolio interface, dynamic experience timeline, project showcase drawers, real-time Gemini AI chatbot drawer, contact submission form, and responsive glassmorphism UI.
+- **Responsibilities**: Interactive dark-mode portfolio interface, dynamic experience timeline, project showcase drawers, real-time Gemini AI chatbot drawer, contact submission form, and responsive glassmorphic UI.
 
 ### 2. `portfolio-service` (Spring Boot Core Microservice)
 - **Port**: `8080` (AWS ECS Fargate)
