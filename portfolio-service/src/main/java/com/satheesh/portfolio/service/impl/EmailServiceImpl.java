@@ -1,10 +1,10 @@
-package com.satheesh.notification.service.impl;
+package com.satheesh.portfolio.service.impl;
 
 import com.satheesh.common.constants.AppConstants;
 import com.satheesh.common.constants.MessageConstants;
 import com.satheesh.common.util.AppLogger;
-import com.satheesh.notification.kafka.event.ContactSubmittedEvent;
-import com.satheesh.notification.service.EmailService;
+import com.satheesh.portfolio.kafka.event.ContactSubmittedEvent;
+import com.satheesh.portfolio.service.EmailService;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -17,19 +17,12 @@ import org.thymeleaf.context.Context;
 
 import java.nio.charset.StandardCharsets;
 
-/**
- * @author Satheesh Kumar P
- * @since 2026-07-27
- * @version 1.0.0
- * 
- * @description Service implementation for sending Thymeleaf HTML email notifications.
- */
 @Service
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
     private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
-    private static final String SERVICE_NAME = "Notification-Service";
+    private static final String SERVICE_NAME = "Portfolio-Service";
     private static final String CLASS_NAME = EmailServiceImpl.class.getSimpleName();
 
     private final JavaMailSender mailSender;
@@ -40,7 +33,7 @@ public class EmailServiceImpl implements EmailService {
         String methodName = "sendContactNotificationEmail";
         
         AppLogger.info(log, SERVICE_NAME, CLASS_NAME, methodName, event.ipAddress(), MessageConstants.LOG_ACTION_SEND_EMAIL,
-                "Rendering email template for messageId: " + event.messageId() + " from sender: " + event.email());
+                "Rendering direct email template for messageId: " + event.messageId() + " from sender: " + event.email());
 
         try {
             Context context = new Context();
@@ -64,11 +57,11 @@ public class EmailServiceImpl implements EmailService {
             mailSender.send(message);
 
             AppLogger.info(log, SERVICE_NAME, CLASS_NAME, methodName, event.ipAddress(), MessageConstants.LOG_ACTION_SEND_EMAIL,
-                    "Email notification successfully delivered to Mailpit/SMTP for messageId: " + event.messageId());
+                    "Email notification successfully delivered directly via Gmail SMTP to: " + AppConstants.NOTIFICATION_EMAIL_TO);
 
         } catch (Exception e) {
             AppLogger.error(log, SERVICE_NAME, CLASS_NAME, methodName, event.ipAddress(), MessageConstants.LOG_ACTION_SEND_EMAIL,
-                    "Failed to send email notification for messageId: " + event.messageId(), e);
+                    "Failed to send direct email notification for messageId: " + event.messageId(), e);
         }
     }
 }

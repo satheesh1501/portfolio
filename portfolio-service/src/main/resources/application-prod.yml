@@ -41,6 +41,20 @@ spring:
       security.protocol: ${SPRING_KAFKA_SECURITY_PROTOCOL:SASL_SSL}
       sasl.mechanism: ${SPRING_KAFKA_SASL_MECHANISM:SCRAM-SHA-256}
       sasl.jaas.config: ${SPRING_KAFKA_SASL_JAAS_CONFIG:org.apache.kafka.common.security.scram.ScramLoginModule required username="${SPRING_KAFKA_USERNAME:avnadmin}" password="${SPRING_KAFKA_PASSWORD:}";}
+      ssl.endpoint.identification.algorithm: ""
+
+
+  mail:
+    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME:psatheeshkumar89@gmail.com}
+    password: ${SPRING_MAIL_PASSWORD:izqwxhgfoftparcm}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   ai:
     openai:
@@ -62,3 +76,15 @@ logging:
   level:
     root: INFO
     com.satheesh.portfolio: INFO
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      backendService:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000ms
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
