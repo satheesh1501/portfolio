@@ -1,0 +1,110 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "portfolio-service",
+            "image": "540716654721.dkr.ecr.ap-south-1.amazonaws.com/portfolio-service:latest",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp",
+                    "name": "portfolio-service-8080-tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "SPRING_MAIL_USERNAME",
+                    "value": "psatheeshkumar89@gmail.com"
+                },
+                {
+                    "name": "SPRING_DATASOURCE_URL",
+                    "value": "jdbc:postgresql://ep-holy-king-axjoyuid.c-4.us-east-2.aws.neon.tech/neondb?sslmode=require"
+                },
+                {
+                    "name": "SPRING_MAIL_HOST",
+                    "value": "smtp.gmail.com"
+                },
+                {
+                    "name": "SPRING_PROFILES_ACTIVE",
+                    "value": "prod"
+                },
+                {
+                    "name": "SPRING_KAFKA_USERNAME",
+                    "value": "avnadmin"
+                },
+                {
+                    "name": "SPRING_DATASOURCE_USERNAME",
+                    "value": "neondb_owner"
+                },
+                {
+                    "name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
+                    "value": "kafka-32db946d-psatheeshkumar89-e72.c.aivencloud.com:27760"
+                },
+                {
+                    "name": "SPRING_DATA_REDIS_HOST",
+                    "value": "model-opossum-184084.upstash.io"
+                },
+                {
+                    "name": "SPRING_DATA_REDIS_SSL",
+                    "value": "true"
+                },
+                {
+                    "name": "SPRING_MAIL_PORT",
+                    "value": "587"
+                },
+                {
+                    "name": "SPRING_DATA_REDIS_PORT",
+                    "value": "6379"
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "GEMINI_API_KEY",
+                    "valueFrom": "arn:aws:ssm:ap-south-1:540716654721:parameter/portfolio/prod/GEMINI_API_KEY"
+                },
+                {
+                    "name": "SPRING_DATASOURCE_PASSWORD",
+                    "valueFrom": "arn:aws:ssm:ap-south-1:540716654721:parameter/portfolio/prod/SPRING_DATASOURCE_PASSWORD"
+                },
+                {
+                    "name": "SPRING_DATA_REDIS_PASSWORD",
+                    "valueFrom": "arn:aws:ssm:ap-south-1:540716654721:parameter/portfolio/prod/SPRING_DATA_REDIS_PASSWORD"
+                },
+                {
+                    "name": "SPRING_MAIL_PASSWORD",
+                    "valueFrom": "arn:aws:ssm:ap-south-1:540716654721:parameter/portfolio/prod/SPRING_MAIL_PASSWORD"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/portfolio-service-task",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL",
+                    "curl -f http://localhost:8080/actuator/health || exit 1"
+                ],
+                "interval": 30,
+                "timeout": 10,
+                "retries": 3,
+                "startPeriod": 120
+            }
+        }
+    ],
+    "family": "portfolio-service-task",
+    "executionRoleArn": "arn:aws:iam::540716654721:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "512",
+    "memory": "1024"
+}
