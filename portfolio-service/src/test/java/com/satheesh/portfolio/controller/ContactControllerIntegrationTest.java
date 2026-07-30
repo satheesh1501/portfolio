@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.satheesh.portfolio.PortfolioServiceApplication;
 import com.satheesh.portfolio.dto.ContactRequestDTO;
 import com.satheesh.portfolio.dto.ContactResponseDTO;
+import com.satheesh.portfolio.kafka.ContactEventProducer;
 import com.satheesh.portfolio.service.ContactService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,13 +28,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * @author Satheesh Kumar P
- * @since 2026-07-27
- * @version 1.0.0
- * 
- * @description Integration tests for ContactController using @SpringBootTest and MockMvc.
- */
 @SpringBootTest(classes = PortfolioServiceApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -44,6 +41,18 @@ class ContactControllerIntegrationTest {
 
     @MockBean
     private ContactService contactService;
+
+    @MockBean
+    private StringRedisTemplate stringRedisTemplate;
+
+    @MockBean
+    private RedisConnectionFactory redisConnectionFactory;
+
+    @MockBean
+    private KafkaTemplate<String, Object> kafkaTemplate;
+
+    @MockBean
+    private ContactEventProducer contactEventProducer;
 
     @Test
     @DisplayName("POST /api/v1/contact — Should return 201 Created for valid payload")

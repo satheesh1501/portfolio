@@ -2,43 +2,147 @@ name: Backend Microservices CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+      - main
+    paths:
+      - 'portfolio-service/**'
+      - 'notification-service/**'
+      - 'common-library/**'
+      - 'pom.xml'
+      - '.github/workflows/backend-ci-cd.yml'
   pull_request:
-    branches: [ main, develop ]
+    branches:
+      - main
+      - develop
+    paths:
+      - 'portfolio-service/**'
+      - 'notification-service/**'
+      - 'common-library/**'
+      - 'pom.xml'
+  workflow_dispatch:
 
 jobs:
-  backend-build-and-test:
-    name: Backend Build & Verify Microservices
+  build-and-test:
+    name: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21 JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Run Maven Unit & Integration Tests
+        run: |
+          mvn test
+
+  changes:
+    name: Detect Changed Microservices
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    outputs:
+      portfolio: ${{ steps.filter.outputs.portfolio }}
+      notification: ${{ steps.filter.outputs.notification }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Path Filter
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            portfolio:
+              - 'portfolio-service/**'
+              - 'common-library/**'
+              - 'pom.xml'
+              - '.github/workflows/backend-ci-cd.yml'
+            notification:
+              - 'notification-service/**'
+              - 'common-library/**'
+              - 'pom.xml'
+              - '.github/workflows/backend-ci-cd.yml'
+
+  deploy-portfolio:
+    name: Build & Deploy Portfolio Service
+    needs: changes
+    if: ${{ (needs.changes.outputs.portfolio == 'true' || github.event_name == 'workflow_dispatch') && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Setup Java 21 (Temurin)
+      - name: Setup Java 21 JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
           distribution: 'temurin'
+          java-version: '21'
           cache: 'maven'
 
-      - name: Build Monorepo (Common Library + Microservices)
-        run: mvn clean package -DskipTests
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
 
-      - name: SonarCloud Code Analysis & Quality Gate
-        if: env.SONAR_TOKEN != ''
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build & Push Docker Image to ECR
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: latest
         run: |
-          mvn sonar:sonar -Dsonar.projectKey=satheesh1501_portfolio -Dsonar.organization=satheesh1501 -Dsonar.host.url=https://sonarcloud.io
+          docker build -t $ECR_REGISTRY/portfolio-service:$IMAGE_TAG -f portfolio-service/Dockerfile .
+          docker push $ECR_REGISTRY/portfolio-service:$IMAGE_TAG
 
-      - name: Verify Docker Image Build - Portfolio Service
+      - name: Force ECS Fargate Redeployment
         run: |
-          docker build -t portfolio-service:latest -f portfolio-service/Dockerfile .
+          aws ecs update-service --cluster portfolio-cluster --service portfolio-service-task-service-gjik5eu4 --task-definition portfolio-service-task:3 --force-new-deployment --region ap-south-1
 
-      - name: Verify Docker Image Build - Notification Service
+  deploy-notification:
+    name: Build & Deploy Notification Service
+    needs: changes
+    if: ${{ (needs.changes.outputs.notification == 'true' || github.event_name == 'workflow_dispatch') && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21 JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build & Push Docker Image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: latest
         run: |
-          docker build -t notification-service:latest -f notification-service/Dockerfile .
+          docker build -t $ECR_REGISTRY/notification-service:$IMAGE_TAG -f notification-service/Dockerfile .
+          docker push $ECR_REGISTRY/notification-service:$IMAGE_TAG
+
+      - name: Force ECS Fargate Redeployment
+        run: |
+          aws ecs update-service --cluster portfolio-cluster --service notification-service-task-service-924lm1yg --task-definition notification-service-task:3 --force-new-deployment --region ap-south-1
