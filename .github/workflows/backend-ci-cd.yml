@@ -100,7 +100,7 @@ jobs:
 
       - name: Force ECS Fargate Redeployment
         run: |
-          aws ecs update-service --cluster portfolio-cluster --service portfolio-service-task-service-gjik5eu4 --task-definition portfolio-service-task:4 --force-new-deployment --region ap-south-1
+          aws ecs update-service --cluster portfolio-cluster --service portfolio-service-task-service-gjik5eu4 --task-definition portfolio-service-task:5 --force-new-deployment --region ap-south-1
 
   deploy-notification:
     name: Build & Deploy Notification Service
