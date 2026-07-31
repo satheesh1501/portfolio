@@ -71,6 +71,15 @@ management:
   endpoint:
     health:
       show-details: when_authorized
+  health:
+    db:
+      enabled: true
+    redis:
+      enabled: false
+    kafka:
+      enabled: false
+    mail:
+      enabled: false
 
 logging:
   level:
